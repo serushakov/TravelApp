@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Destination" representedClassName="Destination" syncable="YES" codeGenerationType="class">
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="trip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="destination" inverseEntity="Trip"/>
+    </entity>
     <entity name="Hub" representedClassName="Hub" syncable="YES" codeGenerationType="class">
         <attribute name="checkIn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="checkOut" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-    </entity>
-    <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
     <entity name="List" representedClassName="List" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
@@ -24,15 +28,15 @@
     <entity name="Trip" representedClassName="Trip" syncable="YES" codeGenerationType="class">
         <attribute name="arrival" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="departure" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="destination" maxCount="1" deletionRule="Nullify" destinationEntity="PointOfInterest"/>
+        <relationship name="destination" maxCount="1" deletionRule="Nullify" destinationEntity="Destination" inverseName="trip" inverseEntity="Destination"/>
         <relationship name="hubs" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Hub"/>
         <relationship name="lists" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="List" inverseName="trip" inverseEntity="List"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="44"/>
-        <element name="Trip" positionX="-63" positionY="-9" width="128" height="14"/>
-        <element name="PointOfInterest" positionX="-54" positionY="0" width="128" height="14"/>
-        <element name="List" positionX="-36" positionY="36" width="128" height="14"/>
+        <element name="Destination" positionX="-36" positionY="63" width="128" height="104"/>
         <element name="Hub" positionX="-18" positionY="63" width="128" height="104"/>
+        <element name="List" positionX="-36" positionY="36" width="128" height="14"/>
+        <element name="PointOfInterest" positionX="-54" positionY="0" width="128" height="14"/>
+        <element name="Trip" positionX="-63" positionY="-9" width="128" height="104"/>
     </elements>
 </model>
