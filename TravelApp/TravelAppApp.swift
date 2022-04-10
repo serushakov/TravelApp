@@ -13,7 +13,7 @@ struct TravelAppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            HomeScreen()
+            TripList()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }

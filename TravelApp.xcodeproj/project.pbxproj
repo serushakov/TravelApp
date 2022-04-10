@@ -7,26 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6429E46328032012006FFD3A /* TripCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6429E46228032012006FFD3A /* TripCreation.swift */; };
 		6459E31C27EF557B00FF69C3 /* TravelAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459E31B27EF557B00FF69C3 /* TravelAppApp.swift */; };
-		6459E31E27EF557B00FF69C3 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459E31D27EF557B00FF69C3 /* ContentView.swift */; };
 		6459E32027EF557E00FF69C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6459E31F27EF557E00FF69C3 /* Assets.xcassets */; };
 		6459E32327EF557E00FF69C3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6459E32227EF557E00FF69C3 /* Preview Assets.xcassets */; };
 		6459E32527EF557E00FF69C3 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459E32427EF557E00FF69C3 /* Persistence.swift */; };
 		6459E32827EF557E00FF69C3 /* TravelApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6459E32627EF557E00FF69C3 /* TravelApp.xcdatamodeld */; };
-		6459E32F27F06DAC00FF69C3 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459E32E27F06DAC00FF69C3 /* HomeScreen.swift */; };
 		6459E33627F2281900FF69C3 /* TripItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459E33527F2281900FF69C3 /* TripItem.swift */; };
+		6459E33827F22AD600FF69C3 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459E33727F22AD600FF69C3 /* BottomSheet.swift */; };
+		6459E33A27F22FCB00FF69C3 /* BottomSheetOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6459E33927F22FCB00FF69C3 /* BottomSheetOverlay.swift */; };
+		6459E33D27F23B3E00FF69C3 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 6459E33C27F23B3E00FF69C3 /* BottomSheet */; };
+		645DFA3827FDE5ED0013A3B1 /* LocationSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645DFA3727FDE5ED0013A3B1 /* LocationSearchService.swift */; };
+		645DFA3A27FDE6440013A3B1 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645DFA3927FDE6440013A3B1 /* SearchBar.swift */; };
+		64C3214E2801786C00AE7357 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C3214D2801786C00AE7357 /* Tag.swift */; };
+		64C321502801794900AE7357 /* TripList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C3214F2801794900AE7357 /* TripList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6429E46228032012006FFD3A /* TripCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCreation.swift; sourceTree = "<group>"; };
 		6459E31827EF557B00FF69C3 /* TravelApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TravelApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6459E31B27EF557B00FF69C3 /* TravelAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelAppApp.swift; sourceTree = "<group>"; };
-		6459E31D27EF557B00FF69C3 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6459E31F27EF557E00FF69C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6459E32227EF557E00FF69C3 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6459E32427EF557E00FF69C3 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		6459E32727EF557E00FF69C3 /* TravelApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TravelApp.xcdatamodel; sourceTree = "<group>"; };
-		6459E32E27F06DAC00FF69C3 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		6459E33527F2281900FF69C3 /* TripItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripItem.swift; sourceTree = "<group>"; };
+		6459E33727F22AD600FF69C3 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		6459E33927F22FCB00FF69C3 /* BottomSheetOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetOverlay.swift; sourceTree = "<group>"; };
+		645DFA3727FDE5ED0013A3B1 /* LocationSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchService.swift; sourceTree = "<group>"; };
+		645DFA3927FDE6440013A3B1 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		64C3214D2801786C00AE7357 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		64C3214F2801794900AE7357 /* TripList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,12 +45,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6459E33D27F23B3E00FF69C3 /* BottomSheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6429E46128031F35006FFD3A /* TripList */ = {
+			isa = PBXGroup;
+			children = (
+				645DFA3727FDE5ED0013A3B1 /* LocationSearchService.swift */,
+				64C3214F2801794900AE7357 /* TripList.swift */,
+				6429E46228032012006FFD3A /* TripCreation.swift */,
+			);
+			path = TripList;
+			sourceTree = "<group>";
+		};
 		6459E30F27EF557B00FF69C3 = {
 			isa = PBXGroup;
 			children = (
@@ -61,7 +83,6 @@
 			children = (
 				6459E31B27EF557B00FF69C3 /* TravelAppApp.swift */,
 				6459E33027F226E600FF69C3 /* Views */,
-				6459E31D27EF557B00FF69C3 /* ContentView.swift */,
 				6459E31F27EF557E00FF69C3 /* Assets.xcassets */,
 				6459E32427EF557E00FF69C3 /* Persistence.swift */,
 				6459E32627EF557E00FF69C3 /* TravelApp.xcdatamodeld */,
@@ -91,22 +112,18 @@
 		6459E33127F2271600FF69C3 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				6459E33227F2272300FF69C3 /* New Group */,
 			);
 			path = Navigation;
-			sourceTree = "<group>";
-		};
-		6459E33227F2272300FF69C3 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		6459E33327F2272800FF69C3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				6459E33527F2281900FF69C3 /* TripItem.swift */,
+				6459E33727F22AD600FF69C3 /* BottomSheet.swift */,
+				6459E33927F22FCB00FF69C3 /* BottomSheetOverlay.swift */,
+				645DFA3927FDE6440013A3B1 /* SearchBar.swift */,
+				64C3214D2801786C00AE7357 /* Tag.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -114,7 +131,7 @@
 		6459E33427F2272C00FF69C3 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				6459E32E27F06DAC00FF69C3 /* HomeScreen.swift */,
+				6429E46128031F35006FFD3A /* TripList */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -135,6 +152,9 @@
 			dependencies = (
 			);
 			name = TravelApp;
+			packageProductDependencies = (
+				6459E33C27F23B3E00FF69C3 /* BottomSheet */,
+			);
 			productName = TravelApp;
 			productReference = 6459E31827EF557B00FF69C3 /* TravelApp.app */;
 			productType = "com.apple.product-type.application";
@@ -163,6 +183,9 @@
 				Base,
 			);
 			mainGroup = 6459E30F27EF557B00FF69C3;
+			packageReferences = (
+				6459E33B27F23B3E00FF69C3 /* XCRemoteSwiftPackageReference "BottomSheet" */,
+			);
 			productRefGroup = 6459E31927EF557B00FF69C3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -189,11 +212,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6429E46328032012006FFD3A /* TripCreation.swift in Sources */,
+				645DFA3827FDE5ED0013A3B1 /* LocationSearchService.swift in Sources */,
 				6459E32527EF557E00FF69C3 /* Persistence.swift in Sources */,
 				6459E33627F2281900FF69C3 /* TripItem.swift in Sources */,
+				6459E33827F22AD600FF69C3 /* BottomSheet.swift in Sources */,
+				64C321502801794900AE7357 /* TripList.swift in Sources */,
+				6459E33A27F22FCB00FF69C3 /* BottomSheetOverlay.swift in Sources */,
 				6459E32827EF557E00FF69C3 /* TravelApp.xcdatamodeld in Sources */,
-				6459E31E27EF557B00FF69C3 /* ContentView.swift in Sources */,
-				6459E32F27F06DAC00FF69C3 /* HomeScreen.swift in Sources */,
+				64C3214E2801786C00AE7357 /* Tag.swift in Sources */,
+				645DFA3A27FDE6440013A3B1 /* SearchBar.swift in Sources */,
 				6459E31C27EF557B00FF69C3 /* TravelAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,6 +423,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6459E33B27F23B3E00FF69C3 /* XCRemoteSwiftPackageReference "BottomSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/LucasMucGH/BottomSheet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6459E33C27F23B3E00FF69C3 /* BottomSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6459E33B27F23B3E00FF69C3 /* XCRemoteSwiftPackageReference "BottomSheet" */;
+			productName = BottomSheet;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		6459E32627EF557E00FF69C3 /* TravelApp.xcdatamodeld */ = {
