@@ -54,6 +54,12 @@ struct TripCreation: View {
                         .onTapGesture {
                             selectedLocation = item
                             showConfirmation = true
+
+                            guard let region = item.placemark.region as? CLCircularRegion else {
+                                return
+                            }
+
+                            print(region.radius)
                         }
                     }
                     .listRowBackground(Color.clear)
@@ -72,10 +78,10 @@ struct TripCreation: View {
 }
 
 struct TripCreation_Previews: PreviewProvider {
-    @State static var sheetPosition: BottomSheetPosition = .top
+    @State static var show = true
 
     static var previews: some View {
-        ZStack {}.bottomSheet(bottomSheetPosition: $sheetPosition) {
+        ZStack {}.sheet(isPresented: $show) {
             TripCreation(isVisible: false)
         }
     }

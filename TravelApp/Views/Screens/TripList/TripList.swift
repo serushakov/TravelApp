@@ -9,10 +9,6 @@ import BottomSheet
 import MapKit
 import SwiftUI
 
-public enum BottomSheetPositionTripList: CGFloat, CaseIterable {
-    case top = 0.975, hidden = 0
-}
-
 struct TripList: View {
     let trips = [
         "Paris",
@@ -20,7 +16,7 @@ struct TripList: View {
         "Amsterdam",
         "A very very very very long name",
     ]
-    @State var bottomSheetPosition: BottomSheetPositionTripList = .hidden
+    @State var showTripAddition = false
 
     var body: some View {
         ZStack {
@@ -36,25 +32,36 @@ struct TripList: View {
                 .navigationTitle("Trips")
                 .toolbar {
                     Button(action: {
-                        bottomSheetPosition = .top
+                        showTripAddition = true
                     }) {
-                            Label("Add trip", systemImage: "plus")
+                        Label("Add trip", systemImage: "plus")
                     }
                 }
+            }
+            .sheet(isPresented: $showTripAddition) {
+                VStack(spacing: 0) {
+                    RoundedRectangle(cornerRadius: 8)
+                        .frame(width: 40, height: 6)
+                        .foregroundColor(.secondary.opacity(0.5))
+                        .padding(.top, 8)
 
-            }.bottomSheet(
-                bottomSheetPosition: $bottomSheetPosition,
-                options: [
-                    .showCloseButton {
-                        bottomSheetPosition = .hidden
-                    },
-                    .shadow(color: Color.black.opacity(0.12), radius: 16, x: 0, y: -2),
-                    .swipeToDismiss,
-                    .noBottomPosition,
-                    .animation(.spring(response: 0.3, dampingFraction: 0.9, blendDuration: 1)),
+                    HStack(alignment: .center) {
+                        Text("New trip")
+                            .font(.title.bold())
+                        Spacer()
+                        Button(action: {
+                            showTripAddition = false
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title)
+                                .foregroundColor(.secondary)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
 
-                ], title: "New trip") {
-                    TripCreation(isVisible: bottomSheetPosition == .top)
+                    TripCreation(isVisible: showTripAddition)
+                }
             }
         }
     }
