@@ -24,7 +24,7 @@ struct TripList: View {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
                         ForEach(trips, id: \.self) { name in
-                            TripItem(city: name, country: "France")
+                            TripItem(city: name, country: "France") {}
                         }
                     }
                 }

@@ -11,8 +11,10 @@ struct TripItem: View {
     let city: String
     let country: String
 
+    let action: () -> Void
+
     var body: some View {
-        Button(action: {}) {
+        Button(action: action) {
             ZStack {
                 GeometryReader { proxy in
                     Image("download")
@@ -58,7 +60,7 @@ struct TripItem: View {
 
 struct TripItem_Previews: PreviewProvider {
     static var previews: some View {
-        TripItem(city: "Paris", country: "France")
+        TripItem(city: "Paris", country: "France") {}
             .padding()
             .frame(width: 200, height: 200)
             .previewLayout(.sizeThatFits)
