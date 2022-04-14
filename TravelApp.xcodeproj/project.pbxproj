@@ -21,6 +21,7 @@
 		645AB13C2807F79A00E89B68 /* BlurHashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645AB13B2807F79A00E89B68 /* BlurHashView.swift */; };
 		645AB13F2807F86300E89B68 /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645AB13E2807F86300E89B68 /* BlurHashDecode.swift */; };
 		645AB1432807FF2D00E89B68 /* BlurHashImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645AB1422807FF2D00E89B68 /* BlurHashImage.swift */; };
+		645AB14728080D0500E89B68 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 645AB14628080D0500E89B68 /* .gitignore */; };
 		645DFA3827FDE5ED0013A3B1 /* LocationSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645DFA3727FDE5ED0013A3B1 /* LocationSearchService.swift */; };
 		645DFA3A27FDE6440013A3B1 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645DFA3927FDE6440013A3B1 /* SearchBar.swift */; };
 		64C3214E2801786C00AE7357 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C3214D2801786C00AE7357 /* Tag.swift */; };
@@ -42,6 +43,9 @@
 		645AB13B2807F79A00E89B68 /* BlurHashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurHashView.swift; sourceTree = "<group>"; };
 		645AB13E2807F86300E89B68 /* BlurHashDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurHashDecode.swift; sourceTree = "<group>"; };
 		645AB1422807FF2D00E89B68 /* BlurHashImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurHashImage.swift; sourceTree = "<group>"; };
+		645AB1442808074900E89B68 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		645AB1452808093300E89B68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		645AB14628080D0500E89B68 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		645DFA3727FDE5ED0013A3B1 /* LocationSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchService.swift; sourceTree = "<group>"; };
 		645DFA3927FDE6440013A3B1 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		64C3214D2801786C00AE7357 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
@@ -73,6 +77,8 @@
 		6459E30F27EF557B00FF69C3 = {
 			isa = PBXGroup;
 			children = (
+				645AB14628080D0500E89B68 /* .gitignore */,
+				645AB1442808074900E89B68 /* Secrets.xcconfig */,
 				6459E31A27EF557B00FF69C3 /* TravelApp */,
 				6459E31927EF557B00FF69C3 /* Products */,
 			);
@@ -89,6 +95,7 @@
 		6459E31A27EF557B00FF69C3 /* TravelApp */ = {
 			isa = PBXGroup;
 			children = (
+				645AB1452808093300E89B68 /* Info.plist */,
 				6424B972280327C400779615 /* TravelApp.xcdatamodeld */,
 				6459E31B27EF557B00FF69C3 /* TravelAppApp.swift */,
 				6459E33027F226E600FF69C3 /* Views */,
@@ -214,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6459E32327EF557E00FF69C3 /* Preview Assets.xcassets in Resources */,
+				645AB14728080D0500E89B68 /* .gitignore in Resources */,
 				6459E32027EF557E00FF69C3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -248,6 +256,7 @@
 /* Begin XCBuildConfiguration section */
 		6459E32927EF557E00FF69C3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 645AB1442808074900E89B68 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -308,6 +317,7 @@
 		};
 		6459E32A27EF557E00FF69C3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 645AB1442808074900E89B68 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -371,6 +381,7 @@
 				DEVELOPMENT_TEAM = YVG657396L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TravelApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -400,6 +411,7 @@
 				DEVELOPMENT_TEAM = YVG657396L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TravelApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

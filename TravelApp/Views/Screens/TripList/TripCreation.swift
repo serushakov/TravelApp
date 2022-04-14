@@ -68,14 +68,16 @@ struct TripCreation: View {
         .confirmationDialog(confirmationLabel, isPresented: $showConfirmation) {
             Button("Cancel", role: .cancel) {}
             Button("Create") {
-                createTrip(to: selectedLocation!)
+                Task {
+                    await createTrip(to: selectedLocation!)
+                }
             }
         } message: {
             Text(confirmationLabel)
         }
     }
 
-    func createTrip(to: MKMapItem) {
+    func createTrip(to: MKMapItem) async {
         guard let region = to.placemark.region as? CLCircularRegion else {
             return
         }
@@ -90,6 +92,18 @@ struct TripCreation: View {
         let trip = Trip(context: managedObjectContext)
         trip.destination = destination
         trip.createdAt = Date.now
+
+        do {
+            let thumbnail = try await ThumbnailSearchService.fetchRandomPhoto(query: destination.name!)
+            if thumbnail != nil {
+                let image = ImageWithBlurHash(context: managedObjectContext)
+                let imageUrl = thumbnail!.urls.small_s3
+
+                image.url = imageUrl
+                image.blurHash = thumbnail!.blur_hash
+                trip.image = image
+            }
+        } catch {}
 
         do {
             try managedObjectContext.save()

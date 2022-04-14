@@ -15,6 +15,10 @@
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="ImageWithBlurHash" representedClassName="ImageWithBlurHash" syncable="YES" codeGenerationType="class">
+        <attribute name="blurHash" optional="YES" attributeType="String"/>
+        <attribute name="url" attributeType="String"/>
+    </entity>
     <entity name="List" representedClassName="List" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="items" toMany="YES" deletionRule="Nullify" destinationEntity="PointOfInterest" inverseName="list" inverseEntity="PointOfInterest"/>
@@ -32,6 +36,7 @@
         <attribute name="departure" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <relationship name="destination" maxCount="1" deletionRule="Nullify" destinationEntity="Destination" inverseName="trip" inverseEntity="Destination"/>
         <relationship name="hubs" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Hub"/>
+        <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageWithBlurHash"/>
         <relationship name="lists" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="List" inverseName="trip" inverseEntity="List"/>
     </entity>
     <elements>
@@ -39,6 +44,7 @@
         <element name="Hub" positionX="-18" positionY="63" width="128" height="104"/>
         <element name="List" positionX="-36" positionY="36" width="128" height="14"/>
         <element name="PointOfInterest" positionX="-54" positionY="0" width="128" height="14"/>
-        <element name="Trip" positionX="-63" positionY="-9" width="128" height="119"/>
+        <element name="Trip" positionX="-63" positionY="-9" width="128" height="134"/>
+        <element name="ImageWithBlurHash" positionX="-36" positionY="81" width="128" height="59"/>
     </elements>
 </model>

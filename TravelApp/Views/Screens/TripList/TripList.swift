@@ -27,11 +27,18 @@ struct TripList: View {
         managedObjectContext.delete(trip)
         do {
             try managedObjectContext.save()
+            if trips.count == 0 {
+                toggleEditMode(false)
+            }
         } catch {}
     }
 
-    func toggleEditMode() {
-        isEditing.toggle()
+    func toggleEditMode(_ value: Bool? = nil) {
+        if value != nil {
+            isEditing = value!
+        } else {
+            isEditing.toggle()
+        }
         scale = isEditing ? 0.9 : 1
         xButtonScale = isEditing ? 1 : 0
     }
@@ -44,7 +51,7 @@ struct TripList: View {
                         ForEach(trips, id: \.self) { trip in
                             ZStack(alignment: .topLeading) {
                                 Button(action: {}) {
-                                    TripItem(city: (trip.destination?.name!)!, country: trip.destination?.country ?? "")
+                                    TripItem(city: (trip.destination?.name!)!, country: trip.destination?.country ?? "", image: trip.image?.url, blurHash: trip.image?.blurHash)
                                 }
 
                                 if isEditing {
@@ -63,6 +70,7 @@ struct TripList: View {
 
                         Button(action: {
                             showTripAddition = true
+                            toggleEditMode(false)
                         }) {
                             ZStack(alignment: .center) {
                                 GeometryReader { proxy in
@@ -83,12 +91,16 @@ struct TripList: View {
                 }
                 .navigationTitle("Trips")
                 .toolbar {
-                    Button(action: {
-                        withAnimation {
-                            toggleEditMode()
+                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                        if trips.count > 0 {
+                            Button(action: {
+                                withAnimation {
+                                    toggleEditMode()
+                                }
+                            }) {
+                                Text(isEditing ? "Done" : "Edit")
+                            }
                         }
-                    }) {
-                        Text(isEditing ? "Done" : "Edit")
                     }
                 }
             }
