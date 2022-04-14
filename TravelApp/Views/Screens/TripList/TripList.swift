@@ -10,57 +10,100 @@ import MapKit
 import SwiftUI
 
 struct TripList: View {
-    let trips = [
-        "Paris",
-        "Helsinki",
-        "Amsterdam",
-        "A very very very very long name",
-    ]
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @State private var isEditing = false
+    @State private var scale: CGFloat = 1
+    @State private var xButtonScale: CGFloat = 0
+
+    @FetchRequest(
+        entity: Trip.entity(),
+        sortDescriptors: [
+            NSSortDescriptor(keyPath: \Trip.createdAt, ascending: true)
+        ]
+    ) var trips: FetchedResults<Trip>
     @State var showTripAddition = false
+
+    func deleteTrip(_ trip: Trip) {
+        managedObjectContext.delete(trip)
+        do {
+            try managedObjectContext.save()
+        } catch {}
+    }
+
+    func toggleEditMode() {
+        isEditing.toggle()
+        scale = isEditing ? 0.9 : 1
+        xButtonScale = isEditing ? 1 : 0
+    }
 
     var body: some View {
         ZStack {
             NavigationView {
                 ScrollView {
-                    LazyVGrid(columns: [GridItem(), GridItem()]) {
-                        ForEach(trips, id: \.self) { name in
-                            TripItem(city: name, country: "France") {}
+                    LazyVGrid(columns: [GridItem(), GridItem()], alignment: .trailing) {
+                        ForEach(trips, id: \.self) { trip in
+                            ZStack(alignment: .topLeading) {
+                                Button(action: {}) {
+                                    TripItem(city: (trip.destination?.name!)!, country: trip.destination?.country ?? "")
+                                }
+
+                                if isEditing {
+                                    DeleteItemButton {
+                                        withAnimation { deleteTrip(trip) }
+                                    }
+                                    .offset(x: -12, y: -12)
+                                    .transition(.asymmetric(insertion: .scale(scale: 0, anchor: UnitPoint.topLeading), removal: .opacity))
+                                    .zIndex(1)
+                                }
+                            }
+                            .scaleEffect(scale)
+                            .animation(.spring(), value: scale)
+                            .transition(.scale)
                         }
-                    }
+
+                        Button(action: {
+                            showTripAddition = true
+                        }) {
+                            ZStack(alignment: .center) {
+                                GeometryReader { proxy in
+                                    ZStack(alignment: .center) {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .frame(width: proxy.size.width, height: proxy.size.width)
+                                            .foregroundColor(Color.blue.opacity(0.12))
+                                    }
+                                }
+
+                                Label("Add new trip", systemImage: "plus.circle.fill")
+                                    .foregroundColor(.blue)
+                                    .labelStyle(.iconOnly)
+                                    .font(.largeTitle)
+                            }
+                        }.aspectRatio(1, contentMode: .fill)
+                    }.padding(.horizontal)
                 }
-                .padding(.horizontal)
                 .navigationTitle("Trips")
                 .toolbar {
                     Button(action: {
-                        showTripAddition = true
+                        withAnimation {
+                            toggleEditMode()
+                        }
                     }) {
-                        Label("Add trip", systemImage: "plus")
+                        Text(isEditing ? "Done" : "Edit")
                     }
                 }
             }
+
             .sheet(isPresented: $showTripAddition) {
                 VStack(spacing: 0) {
-                    RoundedRectangle(cornerRadius: 8)
-                        .frame(width: 40, height: 6)
-                        .foregroundColor(.secondary.opacity(0.5))
-                        .padding(.top, 8)
-
-                    HStack(alignment: .center) {
-                        Text("New trip")
-                            .font(.title.bold())
-                        Spacer()
-                        Button(action: {
-                            showTripAddition = false
-                        }) {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.title)
-                                .foregroundColor(.secondary)
-                        }
+                    SheetHeader(title: "New trip") {
+                        showTripAddition = false
                     }
-                    .padding(.horizontal)
-                    .padding(.vertical, 8)
 
-                    TripCreation(isVisible: showTripAddition)
+                    TripCreation(isVisible: showTripAddition) { trip in
+                        print(trip)
+                        showTripAddition = false
+                    }
+                    .environment(\.managedObjectContext, managedObjectContext)
                 }
             }
         }

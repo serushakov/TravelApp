@@ -10,11 +10,14 @@ import MapKit
 import SwiftUI
 
 struct TripCreation: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
+
     @ObservedObject var locationSearchService = LocationSearchService()
     @State var selectedLocation: MKMapItem?
     @State var showConfirmation: Bool = false
 
     var isVisible: Bool
+    let onTripAdded: (Trip) -> Void
 
     var confirmationLabel: String {
         "Create a trip to \(selectedLocation?.name ?? "nil")?"
@@ -54,12 +57,6 @@ struct TripCreation: View {
                         .onTapGesture {
                             selectedLocation = item
                             showConfirmation = true
-
-                            guard let region = item.placemark.region as? CLCircularRegion else {
-                                return
-                            }
-
-                            print(region.radius)
                         }
                     }
                     .listRowBackground(Color.clear)
@@ -70,10 +67,34 @@ struct TripCreation: View {
         .background(.clear)
         .confirmationDialog(confirmationLabel, isPresented: $showConfirmation) {
             Button("Cancel", role: .cancel) {}
-            Button("Create") {}
+            Button("Create") {
+                createTrip(to: selectedLocation!)
+            }
         } message: {
             Text(confirmationLabel)
         }
+    }
+
+    func createTrip(to: MKMapItem) {
+        guard let region = to.placemark.region as? CLCircularRegion else {
+            return
+        }
+
+        let destination = Destination(context: managedObjectContext)
+        destination.name = to.name
+        destination.country = to.placemark.country
+        destination.latitude = region.center.longitude
+        destination.longitude = region.center.latitude
+        destination.radius = region.radius
+
+        let trip = Trip(context: managedObjectContext)
+        trip.destination = destination
+        trip.createdAt = Date.now
+
+        do {
+            try managedObjectContext.save()
+            onTripAdded(trip)
+        } catch {}
     }
 }
 
@@ -82,7 +103,7 @@ struct TripCreation_Previews: PreviewProvider {
 
     static var previews: some View {
         ZStack {}.sheet(isPresented: $show) {
-            TripCreation(isVisible: false)
+            TripCreation(isVisible: false) { _ in }
         }
     }
 }
