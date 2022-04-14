@@ -113,5 +113,6 @@ struct TripList: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         TripList()
+            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -14,6 +14,16 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
 
+        let trip = Trip(context: viewContext)
+        let destination = Destination(context: viewContext)
+        trip.destination = destination
+        destination.name = "Paris"
+        destination.country = "France"
+        destination.latitude = 48.864716
+        destination.longitude = 2.349014
+        destination.radius = 28782
+        trip.createdAt = Date.now
+
         do {
             try viewContext.save()
         } catch {
