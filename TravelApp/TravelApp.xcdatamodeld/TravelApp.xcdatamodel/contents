@@ -17,6 +17,7 @@
     </entity>
     <entity name="ImageWithBlurHash" representedClassName="ImageWithBlurHash" syncable="YES" codeGenerationType="class">
         <attribute name="blurHash" optional="YES" attributeType="String"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String"/>
         <attribute name="url" attributeType="String"/>
     </entity>
     <entity name="List" representedClassName="List" syncable="YES" codeGenerationType="class">
@@ -42,9 +43,9 @@
     <elements>
         <element name="Destination" positionX="-36" positionY="63" width="128" height="14"/>
         <element name="Hub" positionX="-18" positionY="63" width="128" height="104"/>
+        <element name="ImageWithBlurHash" positionX="-36" positionY="81" width="128" height="74"/>
         <element name="List" positionX="-36" positionY="36" width="128" height="14"/>
         <element name="PointOfInterest" positionX="-54" positionY="0" width="128" height="14"/>
         <element name="Trip" positionX="-63" positionY="-9" width="128" height="134"/>
-        <element name="ImageWithBlurHash" positionX="-36" positionY="81" width="128" height="59"/>
     </elements>
 </model>

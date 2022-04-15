@@ -15,6 +15,8 @@ struct TripList: View {
     @State private var scale: CGFloat = 1
     @State private var xButtonScale: CGFloat = 0
 
+    var onTripSelect: (Trip) -> Void
+
     @FetchRequest(
         entity: Trip.entity(),
         sortDescriptors: [
@@ -50,8 +52,15 @@ struct TripList: View {
                     LazyVGrid(columns: [GridItem(), GridItem()], alignment: .trailing) {
                         ForEach(trips, id: \.self) { trip in
                             ZStack(alignment: .topLeading) {
-                                Button(action: {}) {
-                                    TripItem(city: (trip.destination?.name!)!, country: trip.destination?.country ?? "", image: trip.image?.url, blurHash: trip.image?.blurHash)
+                                Button {
+                                    onTripSelect(trip)
+                                } label: {
+                                    TripItem(
+                                        city: (trip.destination?.name!)!,
+                                        country: trip.destination?.country ?? "",
+                                        image: trip.image?.url,
+                                        blurHash: trip.image?.blurHash
+                                    )
                                 }
 
                                 if isEditing {
@@ -124,7 +133,7 @@ struct TripList: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        TripList()
+        TripList { _ in }
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

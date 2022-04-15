@@ -94,14 +94,14 @@ struct TripCreation: View {
         trip.createdAt = Date.now
 
         do {
-            let thumbnail = try await ThumbnailSearchService.fetchRandomPhoto(query: destination.name!)
-            if thumbnail != nil {
-                let image = ImageWithBlurHash(context: managedObjectContext)
-                let imageUrl = thumbnail!.urls.small_s3
+            let image = try await ThumbnailSearchService.fetchRandomPhoto(query: destination.name!)
+            if let image = image {
+                let imageWithBlurhash = ImageWithBlurHash(context: managedObjectContext)
 
-                image.url = imageUrl
-                image.blurHash = thumbnail!.blur_hash
-                trip.image = image
+                imageWithBlurhash.url = image.urls.regular
+                imageWithBlurhash.thumbnail = image.urls.small_s3
+                imageWithBlurhash.blurHash = image.blur_hash
+                trip.image = imageWithBlurhash
             }
         } catch {}
 

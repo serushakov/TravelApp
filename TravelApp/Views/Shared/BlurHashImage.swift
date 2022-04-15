@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BlurHashImage: View {
     var url: URL
-    var blurHash: String
+    var blurHash: String?
     var size: CGSize
 
     var body: some View {
@@ -19,10 +19,17 @@ struct BlurHashImage: View {
         ) { phase in
             switch phase {
             case .empty:
-                BlurHashView(blurHash: blurHash, size: size)
+                if let blurHash = self.blurHash {
+                    BlurHashView(blurHash: blurHash, size: size)
+                } else {
+                    VStack(alignment: .center) {
+                        ProgressView()
+                    }
+                }
             case .success(let image):
                 image
                     .resizable()
+                    .scaledToFill()
 
             case .failure:
                 Image(systemName: "wifi.slash")
