@@ -47,11 +47,11 @@ struct TripItem: View {
                         }
                         Spacer()
                     }
-
-                }.padding()
-                    .background {
-                        LinearGradient(colors: [Color.black.opacity(0.6), Color.clear], startPoint: .bottom, endPoint: .top)
-                    }
+                }
+                .padding()
+                .background {
+                    LinearGradient(colors: [Color.black.opacity(0.6), Color.clear], startPoint: .bottom, endPoint: .top)
+                }
             }
         }
         .clipped()
