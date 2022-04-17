@@ -12,27 +12,18 @@ struct TripDetail: View {
     let onBack: () -> Void
 
     var body: some View {
-        NavigationView {
-            TabView {
-                TripSummary(trip: trip)
-                    .tabItem {
-                        Image(systemName: "book.fill")
-                        Text("Summary")
-                    }
-                TripDaysList()
-                    .tabItem {
-                        Image(systemName: "calendar")
-                        Text("Days")
-                    }
+        TabView {
+            NavigationView {
+                TripSummary(trip: trip, onBack: onBack)
+            }.tabItem {
+                Image(systemName: "book.fill")
+                Text("Summary")
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: onBack) {
-                        Image(systemName: "xmark")
-                        Text("Close")
-                    }
-                }
+            NavigationView {
+                TripDaysList()
+            }.tabItem {
+                Image(systemName: "calendar")
+                Text("Days")
             }
         }
     }

@@ -12,8 +12,6 @@ import SwiftUI
 struct TripList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @State private var isEditing = false
-    @State private var scale: CGFloat = 1
-    @State private var xButtonScale: CGFloat = 0
 
     var onTripSelect: (Trip) -> Void
 
@@ -26,7 +24,9 @@ struct TripList: View {
     @State var showTripAddition = false
 
     func deleteTrip(_ trip: Trip) {
-        managedObjectContext.delete(trip)
+        withAnimation {
+            managedObjectContext.delete(trip)
+        }
         do {
             try managedObjectContext.save()
             if trips.count == 0 {
@@ -41,8 +41,6 @@ struct TripList: View {
         } else {
             isEditing.toggle()
         }
-        scale = isEditing ? 0.9 : 1
-        xButtonScale = isEditing ? 1 : 0
     }
 
     var body: some View {
@@ -50,8 +48,10 @@ struct TripList: View {
             NavigationView {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(), GridItem()], alignment: .trailing) {
-                        ForEach(trips, id: \.self) { trip in
-                            ZStack(alignment: .topLeading) {
+                        ForEach(trips) { trip in
+                            DeletableItem(isEditing: isEditing, onDelete: {
+                                deleteTrip(trip)
+                            }) {
                                 Button {
                                     onTripSelect(trip)
                                 } label: {
@@ -61,20 +61,8 @@ struct TripList: View {
                                         image: trip.image?.url,
                                         blurHash: trip.image?.blurHash
                                     )
-                                }
-
-                                if isEditing {
-                                    DeleteItemButton {
-                                        withAnimation { deleteTrip(trip) }
-                                    }
-                                    .offset(x: -12, y: -12)
-                                    .transition(.asymmetric(insertion: .scale(scale: 0, anchor: UnitPoint.topLeading), removal: .opacity))
-                                    .zIndex(1)
-                                }
+                                }.transition(.scale)
                             }
-                            .scaleEffect(scale)
-                            .animation(.spring(), value: scale)
-                            .transition(.scale)
                         }
 
                         Button(action: {
@@ -83,7 +71,10 @@ struct TripList: View {
                         }) {
                             AddItem(label: "New trip")
                         }
-                    }.padding(.horizontal)
+                    }
+                    .animation(.easeOut, value: trips.count)
+                    .transition(.slide)
+                    .padding(.horizontal)
                 }
                 .navigationTitle("Trips")
                 .toolbar {
@@ -107,8 +98,7 @@ struct TripList: View {
                         showTripAddition = false
                     }
 
-                    TripCreation(isVisible: showTripAddition) { trip in
-                        print(trip)
+                    TripCreation(isVisible: showTripAddition) { _ in
                         showTripAddition = false
                     }
                     .environment(\.managedObjectContext, managedObjectContext)

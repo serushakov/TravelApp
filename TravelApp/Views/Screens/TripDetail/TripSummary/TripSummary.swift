@@ -11,10 +11,15 @@ struct TripSummary: View {
     @Environment(\.managedObjectContext) var managedObjectContext
 
     let trip: Trip
+    let onBack: () -> Void
+
+    @State var isEditing = false
     @FetchRequest var lists: FetchedResults<List>
 
-    init(trip: Trip) {
+    init(trip: Trip, onBack: @escaping () -> Void) {
         self.trip = trip
+        self.onBack = onBack
+
         _lists = FetchRequest(
             entity: List.entity(),
             sortDescriptors: [
@@ -62,15 +67,8 @@ struct TripSummary: View {
     func createList(named: String) {
         let list = List(context: managedObjectContext)
         list.name = named
+        list.createdAt = Date.now
         list.trip = trip
-
-        let poi1 = PointOfInterest(context: managedObjectContext)
-        poi1.name = "Louvre"
-        poi1.address = "Rue de Rivoli, 75001 Paris, France"
-        poi1.thumbnail = "https://images.unsplash.com/photo-1585843149061-096a118a5ce7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMTQxNzd8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTAwOTY3NTQ&ixlib=rb-1.2.1&q=80&w=200"
-        poi1.blurhash = "LbD9eqf60KayNGjus:ay9Fj[-qj["
-        poi1.addedAt = Date.now
-        poi1.list = list
 
         do {
             try managedObjectContext.save()
@@ -100,23 +98,18 @@ struct TripSummary: View {
                     .font(.largeTitle.bold())
                     .padding()
 
-                ForEach(lists) { list in
-                    ListSection(list: list)
-                        .onTapGesture {}
-                        .onLongPressGesture {
-                            managedObjectContext.delete(list)
-                            do {
-                                try managedObjectContext.save()
-                            } catch {
-                                print(error)
-                                // TODO: Handle error
-                            }
-                        }
-                }
+                LazyVStack(alignment: .leading) {
+                    ForEach(lists) { list in
+                        ListSection(list: list, isEditing: isEditing)
+                            .environment(\.managedObjectContext, managedObjectContext)
+                    }
 
-                CreateListSection { name in
-                    createList(named: name)
-                }.padding()
+                    CreateListSection { name in
+                        createList(named: name)
+                    }.padding()
+                }
+                .animation(.easeOut, value: lists.count)
+                .transition(.slide)
             }
             .frame(
                 minWidth: 0,
@@ -125,8 +118,21 @@ struct TripSummary: View {
             )
             .background(.background)
         }
-        .navigationTitle(trip.destination!.name!)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(trip.destination!.name!)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: onBack) {
+                    Label("Trips", systemImage: "arrow.backward")
+                        .labelStyle(.titleAndIcon)
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(isEditing ? "Done" : "Edit") {
+                    isEditing.toggle()
+                }
+            }
+        }
     }
 }
 
@@ -173,7 +179,7 @@ struct TripSummary_Previews: PreviewProvider {
 
         trip.lists = NSOrderedSet(array: [list])
 
-        return NavigationView { TripSummary(trip: trip)
+        return NavigationView { TripSummary(trip: trip) {}
             .environment(\.managedObjectContext, moc)
         }
     }
