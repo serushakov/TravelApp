@@ -55,6 +55,17 @@ struct ListSection: View {
         }
     }
 
+    private func deleteItem(poi: PointOfInterest) {
+        managedObjectContext.delete(poi)
+
+        do {
+            try managedObjectContext.save()
+        } catch {
+            print(error)
+            // TODO: Handle error
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
@@ -87,7 +98,9 @@ struct ListSection: View {
                 HStack {
                     if let items = list.items?.array as? [PointOfInterest] {
                         ForEach(items) { item in
-                            DeletableItem(isEditing: isEditing, onDelete: {}) {
+                            DeletableItem(isEditing: isEditing, onDelete: {
+                                deleteItem(poi: item)
+                            }) {
                                 PoI(
                                     name: item.name!,
                                     address: item.address!,
@@ -95,6 +108,7 @@ struct ListSection: View {
                                     blurHash: item.blurhash!
                                 ).frame(width: UIScreen.main.bounds.width / 2.5)
                             }
+                            .transition(.scale)
                         }
 
                         if items.count == 0 {
@@ -107,6 +121,8 @@ struct ListSection: View {
                         }
                     }
                 }
+                .animation(.easeOut, value: list.items?.count)
+                .transition(.slide)
                 .padding(.horizontal)
                 .padding(.top, 8)
                 .padding(.bottom, 8)
