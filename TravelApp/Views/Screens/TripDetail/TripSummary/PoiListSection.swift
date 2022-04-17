@@ -7,16 +7,19 @@
 
 import SwiftUI
 
-struct ListSection: View {
+struct PoiListSection: View {
     @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.editMode) private var editMode
+
     var list: List
-    var isEditing: Bool
 
     @FetchRequest private var items: FetchedResults<PointOfInterest>
+    private var isEditing: Bool {
+        editMode?.wrappedValue == EditMode.active
+    }
 
-    init(list: List, isEditing: Bool) {
+    init(list: List) {
         self.list = list
-        self.isEditing = isEditing
 
         _items = FetchRequest(
             entity: PointOfInterest.entity(),
@@ -68,48 +71,26 @@ struct ListSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            HStack {
-                Text(list.name!)
-                    .font(.title2.bold())
-                Spacer()
-                Button {
-                    if isEditing {
-                        deleteSection()
-                    } else {
-                        addItem()
-                    }
-                } label: {
-                    if isEditing {
-                        Text("Delete")
-                            .foregroundColor(.red)
-                    } else {
-                        Label("Add item to list", systemImage: "plus")
-                            .labelStyle(.iconOnly)
-                            .font(.title3)
-                    }
-                }
-                .animation(.easeOut, value: isEditing)
-                .transition(.opacity)
-            }
-            .padding(.horizontal)
-            .padding(.top)
+            ListSectionHeader(
+                title: list.name!,
+                onAdd: addItem,
+                onDelete: deleteSection
+            )
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    if let items = list.items?.array as? [PointOfInterest] {
-                        ForEach(items) { item in
-                            DeletableItem(isEditing: isEditing, onDelete: {
-                                deleteItem(poi: item)
-                            }) {
-                                PoI(
-                                    name: item.name!,
-                                    address: item.address!,
-                                    image: item.thumbnail!,
-                                    blurHash: item.blurhash!
-                                ).frame(width: UIScreen.main.bounds.width / 2.5)
-                            }
-                            .transition(.scale)
+                    ForEach(items) { item in
+                        DeletableItem(onDelete: {
+                            deleteItem(poi: item)
+                        }) {
+                            PoI(
+                                name: item.name!,
+                                address: item.address!,
+                                image: item.thumbnail!,
+                                blurHash: item.blurhash!
+                            ).frame(width: UIScreen.main.bounds.width / 2.5)
                         }
+                        .transition(.scale)
 
                         if items.count == 0 {
                             Button {
@@ -133,6 +114,7 @@ struct ListSection: View {
 
 struct ListSection_Previews: PreviewProvider {
     static let moc = PersistenceController.preview.container.viewContext
+    @State static var editMode = EditMode.active
 
     static var previews: some View {
         let list = List(context: moc)
@@ -163,8 +145,9 @@ struct ListSection_Previews: PreviewProvider {
         ])
 
         return VStack {
-            ListSection(list: list, isEditing: false)
-            ListSection(list: list, isEditing: true)
+            PoiListSection(list: list)
+            PoiListSection(list: list)
+                .environment(\.editMode, $editMode)
         }.previewLayout(.device)
     }
 }

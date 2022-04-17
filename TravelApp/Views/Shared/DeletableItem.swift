@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct DeletableItem<Content: View>: View {
+    @Environment(\.editMode) private var editMode
+
     var content: Content
-    var isEditing: Bool
     var onDelete: () -> Void
 
-    init(isEditing: Bool, onDelete: @escaping () -> Void, @ViewBuilder _ content: () -> Content) {
-        self.isEditing = isEditing
+    init(onDelete: @escaping () -> Void, @ViewBuilder _ content: () -> Content) {
         self.onDelete = onDelete
         self.content = content()
     }
 
     var body: some View {
-        let scale = isEditing ? 0.9 : 1
+        let scale = editMode?.wrappedValue == EditMode.active ? 0.9 : 1
 
         return ZStack(alignment: .topLeading) {
             content
 
-            if isEditing {
+            if editMode?.wrappedValue == EditMode.active {
                 DeleteItemButton {
                     onDelete()
                 }
@@ -37,7 +37,7 @@ struct DeletableItem<Content: View>: View {
                 .zIndex(1)
             }
         }
-        .animation(.easeOut, value: isEditing)
+        .animation(.easeOut, value: editMode?.wrappedValue)
         .scaleEffect(scale)
         .animation(.spring(), value: scale)
         .transition(.scale)
@@ -46,7 +46,7 @@ struct DeletableItem<Content: View>: View {
 
 struct EditableItem_Previews: PreviewProvider {
     static var previews: some View {
-        DeletableItem(isEditing: true, onDelete: {}) {
+        DeletableItem(onDelete: {}) {
             Rectangle()
                 .frame(width: 100, height: 100)
                 .cornerRadius(8)

@@ -13,7 +13,6 @@ struct TripSummary: View {
     let trip: Trip
     let onBack: () -> Void
 
-    @State var isEditing = false
     @FetchRequest var lists: FetchedResults<List>
 
     init(trip: Trip, onBack: @escaping () -> Void) {
@@ -100,7 +99,7 @@ struct TripSummary: View {
 
                 LazyVStack(alignment: .leading) {
                     ForEach(lists) { list in
-                        ListSection(list: list, isEditing: isEditing)
+                        PoiListSection(list: list)
                             .environment(\.managedObjectContext, managedObjectContext)
                     }
 
@@ -127,10 +126,8 @@ struct TripSummary: View {
                         .labelStyle(.titleAndIcon)
                 }
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(isEditing ? "Done" : "Edit") {
-                    isEditing.toggle()
-                }
+            ToolbarItem {
+                EditButton()
             }
         }
     }

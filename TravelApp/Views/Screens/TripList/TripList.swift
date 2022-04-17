@@ -11,7 +11,7 @@ import SwiftUI
 
 struct TripList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @State private var isEditing = false
+    @Environment(\.editMode) private var editMode
 
     var onTripSelect: (Trip) -> Void
 
@@ -30,17 +30,9 @@ struct TripList: View {
         do {
             try managedObjectContext.save()
             if trips.count == 0 {
-                toggleEditMode(false)
+                editMode?.wrappedValue = EditMode.inactive
             }
         } catch {}
-    }
-
-    func toggleEditMode(_ value: Bool? = nil) {
-        if value != nil {
-            isEditing = value!
-        } else {
-            isEditing.toggle()
-        }
     }
 
     var body: some View {
@@ -49,7 +41,7 @@ struct TripList: View {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(), GridItem()], alignment: .trailing) {
                         ForEach(trips) { trip in
-                            DeletableItem(isEditing: isEditing, onDelete: {
+                            DeletableItem(onDelete: {
                                 deleteTrip(trip)
                             }) {
                                 Button {
@@ -67,7 +59,7 @@ struct TripList: View {
 
                         Button(action: {
                             showTripAddition = true
-                            toggleEditMode(false)
+                            editMode?.wrappedValue = EditMode.inactive
                         }) {
                             AddItem(label: "New trip")
                         }
@@ -78,15 +70,9 @@ struct TripList: View {
                 }
                 .navigationTitle("Trips")
                 .toolbar {
-                    ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    ToolbarItemGroup {
                         if trips.count > 0 {
-                            Button(action: {
-                                withAnimation {
-                                    toggleEditMode()
-                                }
-                            }) {
-                                Text(isEditing ? "Done" : "Edit")
-                            }
+                            EditButton()
                         }
                     }
                 }
