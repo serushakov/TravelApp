@@ -29,13 +29,11 @@
 		645AB14728080D0500E89B68 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 645AB14628080D0500E89B68 /* .gitignore */; };
 		645AB14A28080EEA00E89B68 /* TripDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645AB14928080EEA00E89B68 /* TripDetail.swift */; };
 		645AEA3D280AA98200B6542E /* ListSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645AEA3C280AA98200B6542E /* ListSection.swift */; };
-		645AEA40280AAF6000B6542E /* SnapToScroll in Frameworks */ = {isa = PBXBuildFile; productRef = 645AEA3F280AAF6000B6542E /* SnapToScroll */; };
 		645DFA3827FDE5ED0013A3B1 /* LocationSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645DFA3727FDE5ED0013A3B1 /* LocationSearchService.swift */; };
 		645DFA3A27FDE6440013A3B1 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645DFA3927FDE6440013A3B1 /* SearchBar.swift */; };
 		64C3214E2801786C00AE7357 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C3214D2801786C00AE7357 /* Tag.swift */; };
 		64C321502801794900AE7357 /* TripList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C3214F2801794900AE7357 /* TripList.swift */; };
 		64CA9912280AB66A0047234D /* PoI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA9911280AB66A0047234D /* PoI.swift */; };
-		64DAFC98280AD9A700499D3B /* ScrollingHStackModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DAFC97280AD9A700499D3B /* ScrollingHStackModifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,7 +66,6 @@
 		64C3214D2801786C00AE7357 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		64C3214F2801794900AE7357 /* TripList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripList.swift; sourceTree = "<group>"; };
 		64CA9911280AB66A0047234D /* PoI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoI.swift; sourceTree = "<group>"; };
-		64DAFC97280AD9A700499D3B /* ScrollingHStackModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollingHStackModifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +73,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				645AEA40280AAF6000B6542E /* SnapToScroll in Frameworks */,
 				6407546F28081EB90061F867 /* BottomSheet in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,7 +161,6 @@
 		6459E33327F2272800FF69C3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				64DAFC97280AD9A700499D3B /* ScrollingHStackModifier.swift */,
 				6459E33527F2281900FF69C3 /* TripItem.swift */,
 				645DFA3927FDE6440013A3B1 /* SearchBar.swift */,
 				64C3214D2801786C00AE7357 /* Tag.swift */,
@@ -218,7 +213,6 @@
 			name = TravelApp;
 			packageProductDependencies = (
 				6407546E28081EB90061F867 /* BottomSheet */,
-				645AEA3F280AAF6000B6542E /* SnapToScroll */,
 			);
 			productName = TravelApp;
 			productReference = 6459E31827EF557B00FF69C3 /* TravelApp.app */;
@@ -250,7 +244,6 @@
 			mainGroup = 6459E30F27EF557B00FF69C3;
 			packageReferences = (
 				6407546D28081EB90061F867 /* XCRemoteSwiftPackageReference "BottomSheet" */,
-				645AEA3E280AAF6000B6542E /* XCRemoteSwiftPackageReference "hstack-snap-to-scroll" */,
 			);
 			productRefGroup = 6459E31927EF557B00FF69C3 /* Products */;
 			projectDirPath = "";
@@ -297,7 +290,6 @@
 				64C3214E2801786C00AE7357 /* Tag.swift in Sources */,
 				64CA9912280AB66A0047234D /* PoI.swift in Sources */,
 				6409D3BD280ABFAD00188FFA /* CreateListSection.swift in Sources */,
-				64DAFC98280AD9A700499D3B /* ScrollingHStackModifier.swift in Sources */,
 				645AB1382807E3E200E89B68 /* SheetHeader.swift in Sources */,
 				645DFA3A27FDE6440013A3B1 /* SearchBar.swift in Sources */,
 				645AB14A28080EEA00E89B68 /* TripDetail.swift in Sources */,
@@ -517,14 +509,6 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		645AEA3E280AAF6000B6542E /* XCRemoteSwiftPackageReference "hstack-snap-to-scroll" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/swiftui-library/hstack-snap-to-scroll";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -532,11 +516,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6407546D28081EB90061F867 /* XCRemoteSwiftPackageReference "BottomSheet" */;
 			productName = BottomSheet;
-		};
-		645AEA3F280AAF6000B6542E /* SnapToScroll */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 645AEA3E280AAF6000B6542E /* XCRemoteSwiftPackageReference "hstack-snap-to-scroll" */;
-			productName = SnapToScroll;
 		};
 /* End XCSwiftPackageProductDependency section */
 
