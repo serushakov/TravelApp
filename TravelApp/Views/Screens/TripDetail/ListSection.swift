@@ -11,34 +11,52 @@ import SwiftUI
 struct ListSection: View {
     var list: List
 
-    var body: some View {
-        GeometryReader { geometry in
-            VStack(alignment: .leading) {
-                HStack {
-                    Text(list.name!)
-                        .font(.title2.bold())
-                    Spacer()
-                    Button {} label: {
-                        Label("Add item to list", systemImage: "plus")
-                            .labelStyle(.iconOnly)
-                    }
-                }.padding(.horizontal)
-                HStackSnap(alignment: .leading(16)) {
-                    let items = list.items?.array as! [PointOfInterest]
+    @FetchRequest private var items: FetchedResults<PointOfInterest>
 
+    init(list: List) {
+        self.list = list
+        _items = FetchRequest(
+            entity: PointOfInterest.entity(),
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \PointOfInterest.addedAt, ascending: true)
+            ],
+            predicate: NSPredicate(format: "list == %@", list)
+        )
+    }
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Text(list.name!)
+                    .font(.title2.bold())
+                Spacer()
+                Button {} label: {
+                    Label("Add item to list", systemImage: "plus")
+                        .labelStyle(.iconOnly)
+                }
+            }.padding(.horizontal)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    let items = list.items?.array as! [PointOfInterest]
                     ForEach(items) { item in
-                        VStack {
-                            PoI(
-                                name: item.name!,
-                                address: item.address!,
-                                image: item.thumbnail!,
-                                blurHash: item.blurhash!
-                            )
-                            .snapAlignmentHelper(id: item)
+                        PoI(
+                            name: item.name!,
+                            address: item.address!,
+                            image: item.thumbnail!,
+                            blurHash: item.blurhash!
+                        ).frame(width: UIScreen.main.bounds.width / 2.5)
+                    }
+
+                    if items.count == 0 {
+                        Button {} label: {
+                            AddItem(label: "Add new point of interest")
+                                .frame(width: UIScreen.main.bounds.width / 2.5)
                         }
-                        .frame(width: geometry.size.width / 2.5)
                     }
                 }
+                .padding(.horizontal)
+                .padding(.vertical, 4)
             }
         }
     }
@@ -75,6 +93,9 @@ struct ListSection_Previews: PreviewProvider {
             poi3
         ])
 
-        return ListSection(list: list)
+        return VStack(spacing: 0) {
+            ListSection(list: list)
+            ListSection(list: list)
+        }.previewLayout(.device)
     }
 }

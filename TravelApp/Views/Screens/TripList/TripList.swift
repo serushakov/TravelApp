@@ -81,21 +81,8 @@ struct TripList: View {
                             showTripAddition = true
                             toggleEditMode(false)
                         }) {
-                            ZStack(alignment: .center) {
-                                GeometryReader { proxy in
-                                    ZStack(alignment: .center) {
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .frame(width: proxy.size.width, height: proxy.size.width)
-                                            .foregroundColor(Color.blue.opacity(0.12))
-                                    }
-                                }
-
-                                Label("Add new trip", systemImage: "plus.circle.fill")
-                                    .foregroundColor(.blue)
-                                    .labelStyle(.iconOnly)
-                                    .font(.largeTitle)
-                            }
-                        }.aspectRatio(1, contentMode: .fill)
+                            AddItem(label: "New trip")
+                        }
                     }.padding(.horizontal)
                 }
                 .navigationTitle("Trips")

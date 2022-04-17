@@ -21,11 +21,13 @@
         <attribute name="url" attributeType="String"/>
     </entity>
     <entity name="List" representedClassName="List" syncable="YES" codeGenerationType="class">
+        <attribute name="createdAt" attributeType="Date" defaultDateTimeInterval="671794620" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="items" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="PointOfInterest" inverseName="list" inverseEntity="PointOfInterest"/>
         <relationship name="trip" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="lists" inverseEntity="Trip"/>
     </entity>
     <entity name="PointOfInterest" representedClassName="PointOfInterest" syncable="YES" codeGenerationType="class">
+        <attribute name="addedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" attributeType="String"/>
         <attribute name="blurhash" attributeType="String"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -47,8 +49,8 @@
         <element name="Destination" positionX="-36" positionY="63" width="128" height="14"/>
         <element name="Hub" positionX="-18" positionY="63" width="128" height="104"/>
         <element name="ImageWithBlurHash" positionX="-36" positionY="81" width="128" height="74"/>
-        <element name="List" positionX="-36" positionY="36" width="128" height="74"/>
-        <element name="PointOfInterest" positionX="-54" positionY="0" width="128" height="134"/>
+        <element name="List" positionX="-36" positionY="36" width="128" height="89"/>
+        <element name="PointOfInterest" positionX="-54" positionY="0" width="128" height="149"/>
         <element name="Trip" positionX="-63" positionY="-9" width="128" height="134"/>
     </elements>
 </model>

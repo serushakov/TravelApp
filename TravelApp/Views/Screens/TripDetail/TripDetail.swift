@@ -29,8 +29,8 @@ struct TripDetail: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: onBack) {
-                        Image(systemName: "chevron.backward")
-                        Text("Trips")
+                        Image(systemName: "xmark")
+                        Text("Close")
                     }
                 }
             }

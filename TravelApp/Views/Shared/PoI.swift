@@ -15,28 +15,25 @@ struct PoI: View {
 
     var body: some View {
         VStack {
-            GeometryReader { proxy in
-                VStack(alignment: .leading, spacing: 0) {
-                    BlurHashImage(url: URL(string: image)!, blurHash: blurHash, size: CGSize(width: 4, height: 3))
-                        .frame(width: proxy.size.width)
-                        .frame(minHeight: 0)
-                        .clipped()
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(name)
-                            .font(.footnote.bold())
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(1)
-                        Text(address)
-                            .font(.caption)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(1)
-                    }
-                    .padding(8)
+            VStack(alignment: .leading, spacing: 0) {
+                BlurHashImage(url: URL(string: image)!, blurHash: blurHash, size: CGSize(width: 4, height: 3))
+                    .frame(minHeight: 0)
+                    .clipped()
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(name)
+                        .font(.footnote.bold())
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+                    Text(address)
+                        .font(.caption)
+                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
                 }
+                .padding(8)
             }
-            .clipped()
-            .aspectRatio(1, contentMode: .fit)
         }
+        .clipped()
+        .aspectRatio(1, contentMode: .fit)
         .background(.background)
         .cornerRadius(8)
         .shadow(radius: 4)
