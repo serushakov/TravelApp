@@ -53,20 +53,21 @@ struct ListSectionHeader: View {
                     onAdd()
                 }
             } label: {
-                if isEditing && deletable {
-                    Text("Delete")
-                        .foregroundColor(.red)
-                } else {
-                    Label("Add item to list", systemImage: "plus")
-                        .labelStyle(.iconOnly)
-                        .font(.title3)
-                }
+                VStack {
+                    if isEditing && deletable {
+                        Text("Delete")
+                            .foregroundColor(.red)
+                    } else {
+                        Label("Add item to list", systemImage: "plus")
+                            .labelStyle(.iconOnly)
+                            .font(.title3)
+                    }
+                }.foregroundColor(.blue)
             }
+            .buttonStyle(.plain)
             .animation(.easeOut, value: editMode?.wrappedValue)
             .transition(.opacity)
         }
-        .padding(.horizontal)
-        .padding(.top)
     }
 }
 

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct TripSummary: View {
-    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.managedObjectContext) var moc
+    @Environment(\.editMode) private var editMode
 
     let trip: Trip
     let onBack: () -> Void
 
     @FetchRequest var lists: FetchedResults<List>
+    @FetchRequest private var hubs: FetchedResults<Hub>
 
     init(trip: Trip, onBack: @escaping () -> Void) {
         self.trip = trip
@@ -23,6 +25,14 @@ struct TripSummary: View {
             entity: List.entity(),
             sortDescriptors: [
                 NSSortDescriptor(keyPath: \List.createdAt, ascending: true)
+            ],
+            predicate: NSPredicate(format: "trip == %@", trip)
+        )
+
+        _hubs = FetchRequest(
+            entity: Hub.entity(),
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Hub.addedAt, ascending: true)
             ],
             predicate: NSPredicate(format: "trip == %@", trip)
         )
@@ -64,58 +74,92 @@ struct TripSummary: View {
     }
 
     func createList(named: String) {
-        let list = List(context: managedObjectContext)
+        let list = List(context: moc)
         list.name = named
         list.createdAt = Date.now
         list.trip = trip
 
         do {
-            try managedObjectContext.save()
+            try moc.save()
         } catch {
             print(error)
             // TODO: Handle error
         }
     }
 
-    var body: some View {
-        ScrollView {
-            GeometryReader { proxy in
-                VStack {
-                    if let imageUrl = trip.image?.url {
-                        BlurHashImage(url: URL(string: imageUrl)!, blurHash: trip.image!.blurHash, size: CGSize(width: 4, height: 3))
-                    } else {
-                        Image("download")
-                    }
-                }
-                .frame(width: proxy.size.width, height: self.getHeightForHeaderImage(proxy))
-                .clipped()
-                .offset(x: 0, y: self.getOffsetForHeaderImage(proxy))
-            }.frame(height: 200)
+    private func addHub() {
+        let hub = Hub(context: moc)
+        hub.name = "Hotel Whatever"
+        hub.checkIn = Date.now
+        hub.checkOut = Date.now
+        hub.trip = trip
+        hub.addedAt = Date.now
 
-            VStack(alignment: .leading) {
+        do {
+            try moc.save()
+        } catch {
+            print(error)
+            // TODO: handle error
+        }
+    }
+
+    private func handleDelete(_ indexSet: IndexSet) {
+        indexSet
+            .map { hubs[$0] }
+            .forEach { hub in
+                moc.delete(hub)
+            }
+
+        do {
+            try moc.save()
+        } catch {
+            print(error)
+            // TODO: handle error
+        }
+    }
+
+    var body: some View {
+        VStack {
+            SwiftUI.List {
+                GeometryReader { proxy in
+                    VStack {
+                        if let imageUrl = trip.image?.url {
+                            BlurHashImage(url: URL(string: imageUrl)!, blurHash: trip.image!.blurHash, size: CGSize(width: 4, height: 3))
+                        } else {
+                            Image("download")
+                        }
+                    }
+                    .frame(width: proxy.size.width, height: self.getHeightForHeaderImage(proxy))
+                    .clipped()
+                    .offset(x: 0, y: self.getOffsetForHeaderImage(proxy))
+                }
+                .frame(height: 200)
+                .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets())
+
                 Text(trip.destination!.name!)
                     .font(.largeTitle.bold())
-                    .padding()
+                    .listRowSeparator(.hidden)
 
-                LazyVStack(alignment: .leading) {
-                    ForEach(lists) { list in
-                        PoiListSection(list: list)
-                            .environment(\.managedObjectContext, managedObjectContext)
-                    }
+                HubsSection(trip: trip)
+                    .environment(\.managedObjectContext, moc)
+                    .listRowSeparator(.hidden)
 
-                    CreateListSection { name in
-                        createList(named: name)
-                    }.padding()
+                ForEach(lists) { list in
+                    PoiListSection(list: list)
+                        .environment(\.managedObjectContext, moc)
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
                 }
-                .animation(.easeOut, value: lists.count)
-                .transition(.slide)
+
+                CreateListSection { name in
+                    createList(named: name)
+                }
+                .listRowSeparator(.hidden)
             }
-            .frame(
-                minWidth: 0,
-                maxWidth: .infinity,
-                alignment: .topLeading
-            )
-            .background(.background)
+            .listStyle(.plain)
+            .animation(.easeOut, value: lists.count)
+            .transition(.slide)
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(trip.destination!.name!)

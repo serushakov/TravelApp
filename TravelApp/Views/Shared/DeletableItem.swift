@@ -41,6 +41,9 @@ struct DeletableItem<Content: View>: View {
         .scaleEffect(scale)
         .animation(.spring(), value: scale)
         .transition(.scale)
+        .onChange(of: editMode?.wrappedValue) { value in
+            print(value)
+        }
     }
 }
 

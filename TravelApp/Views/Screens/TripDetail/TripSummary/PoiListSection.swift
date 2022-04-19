@@ -32,6 +32,7 @@ struct PoiListSection: View {
 
     private func deleteSection() {
         managedObjectContext.delete(list)
+        print("Delete")
 
         do {
             try managedObjectContext.save()
@@ -70,27 +71,32 @@ struct PoiListSection: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            ListSectionHeader(
-                title: list.name!,
-                onAdd: addItem,
-                onDelete: deleteSection
-            )
+        if let name = list.name {
+            Section {
+                ListSectionHeader(
+                    title: name,
+                    onAdd: addItem,
+                    onDelete: deleteSection
+                )
+                .padding(.horizontal)
+                .padding(.top)
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(items) { item in
-                        DeletableItem(onDelete: {
-                            deleteItem(poi: item)
-                        }) {
-                            PoI(
-                                name: item.name!,
-                                address: item.address!,
-                                image: item.thumbnail!,
-                                blurHash: item.blurhash!
-                            ).frame(width: UIScreen.main.bounds.width / 2.5)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(items) { item in
+                            DeletableItem(onDelete: {
+                                deleteItem(poi: item)
+                            }) {
+                                PoI(
+                                    name: item.name!,
+                                    address: item.address!,
+                                    image: item.thumbnail!,
+                                    blurHash: item.blurhash!
+                                ).frame(width: UIScreen.main.bounds.width / 2.5)
+                            }
+                            .environment(\.editMode, editMode)
+                            .transition(.scale)
                         }
-                        .transition(.scale)
 
                         if items.count == 0 {
                             Button {
@@ -101,12 +107,12 @@ struct PoiListSection: View {
                             }
                         }
                     }
+                    .animation(.easeOut, value: list.items?.count)
+                    .transition(.slide)
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                    .padding(.bottom, 8)
                 }
-                .animation(.easeOut, value: list.items?.count)
-                .transition(.slide)
-                .padding(.horizontal)
-                .padding(.top, 8)
-                .padding(.bottom, 8)
             }
         }
     }

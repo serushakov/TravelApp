@@ -34,7 +34,7 @@ struct PoI: View {
         }
         .clipped()
         .aspectRatio(1, contentMode: .fit)
-        .background(.background)
+        .background(.regularMaterial)
         .cornerRadius(8)
         .shadow(radius: 4)
     }

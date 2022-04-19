@@ -25,7 +25,8 @@ struct CreateListSection: View {
                 }
             } else {
                 TextField("Name", text: $name)
-                    .focused($isNameFieldFocused)
+                    .focused($isNameFieldFocused, equals: true)
+                    .textFieldStyle(.plain)
                     .onAppear {
                         isNameFieldFocused = true
                     }
