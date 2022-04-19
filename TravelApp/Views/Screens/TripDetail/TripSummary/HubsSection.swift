@@ -54,6 +54,8 @@ struct HubsSection: View {
     var body: some View {
         Section {
             ListSectionHeader(title: "Hubs", onAdd: addHub)
+                .padding(.horizontal)
+                .padding(.bottom, 8)
 
             ForEach(hubs) { hub in
                 Button {} label: {
@@ -63,13 +65,15 @@ struct HubsSection: View {
                         Image(systemName: "chevron.forward")
                             .foregroundColor(.blue)
                             .font(.title3)
-                    }
+                    }.padding(.trailing)
                 }
                 .listRowSeparator(.automatic)
+                .padding(.leading)
             }
             .onDelete(perform: handleDelete)
         }
         .listRowSeparator(.hidden)
+        .listRowInsets(EdgeInsets())
     }
 }
 

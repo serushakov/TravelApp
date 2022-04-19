@@ -7,23 +7,54 @@
 
 import SwiftUI
 
+enum Tab {
+    case summary
+    case days
+}
+
 struct TripDetail: View {
+    @Environment(\.editMode) private var editMode
     let trip: Trip
-    let onBack: () -> Void
+
+    @State var selectedTab = Tab.summary
+
+    private func getTitle() -> String {
+        switch selectedTab {
+        case .summary:
+            if let name = trip.destination?.name {
+                return name
+            }
+            return ""
+        case .days:
+            return "Days"
+        }
+    }
 
     var body: some View {
-        TabView {
-            NavigationView {
-                TripSummary(trip: trip, onBack: onBack)
-            }.tabItem {
-                Image(systemName: "book.fill")
-                Text("Summary")
-            }
-            NavigationView {
-                TripDaysList()
-            }.tabItem {
-                Image(systemName: "calendar")
-                Text("Days")
+        TabView(selection: $selectedTab) {
+            TripSummary(trip: trip)
+                .tabItem {
+                    Image(systemName: "book.fill")
+                    Text("Summary")
+                }
+                .tag(Tab.summary)
+                .environment(\.editMode, editMode)
+
+            TripDaysList()
+                .tabItem {
+                    Image(systemName: "calendar")
+                    Text("Days")
+                }
+                .tag(Tab.days)
+        }
+        .navigationTitle(getTitle())
+
+        .toolbar {
+            switch selectedTab {
+            case .summary:
+                EditButton()
+            case .days:
+                EmptyView()
             }
         }
     }
@@ -42,7 +73,8 @@ struct TripDetail_Previews: PreviewProvider {
         destination.radius = 28782
         trip.createdAt = Date.now
 
-        return TripDetail(trip: trip) {}
+        return NavigationView { TripDetail(trip: trip)
             .environment(\.managedObjectContext, moc)
+        }
     }
 }

@@ -80,6 +80,7 @@ struct PoiListSection: View {
                 )
                 .padding(.horizontal)
                 .padding(.top)
+                .padding(.bottom, 8)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
@@ -94,8 +95,8 @@ struct PoiListSection: View {
                                     blurHash: item.blurhash!
                                 ).frame(width: UIScreen.main.bounds.width / 2.5)
                             }
-                            .environment(\.editMode, editMode)
                             .transition(.scale)
+                            .environment(\.editMode, editMode)
                         }
 
                         if items.count == 0 {
@@ -107,12 +108,12 @@ struct PoiListSection: View {
                             }
                         }
                     }
-                    .animation(.easeOut, value: list.items?.count)
-                    .transition(.slide)
                     .padding(.horizontal)
                     .padding(.top, 8)
                     .padding(.bottom, 8)
                 }
+                .animation(.easeOut, value: list.items?.count)
+                .transition(.slide)
             }
         }
     }

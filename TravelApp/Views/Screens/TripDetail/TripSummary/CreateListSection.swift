@@ -15,32 +15,32 @@ struct CreateListSection: View {
     @FocusState var isNameFieldFocused: Bool
 
     var body: some View {
-        VStack {
-            if !isCreating {
-                Button {
-                    isCreating = true
-                } label: {
-                    Label("Add section", systemImage: "plus.circle")
-                        .font(.title3.bold())
-                }
-            } else {
-                TextField("Name", text: $name)
-                    .focused($isNameFieldFocused, equals: true)
-                    .textFieldStyle(.plain)
-                    .onAppear {
-                        isNameFieldFocused = true
-                    }
-                    .font(.title2.bold())
-                    .submitLabel(.done)
-                    .onSubmit {
-                        if !name.isEmpty {
-                            onSectionCreated(name)
-                        }
-                        isCreating = false
-                        isNameFieldFocused = false
-                        name = ""
-                    }
+        if !isCreating {
+            Button {
+                isCreating = true
+            } label: {
+                Label("Add section", systemImage: "plus.circle")
+                    .font(.title3.bold())
+                    .foregroundColor(.blue)
             }
+        } else {
+            TextField("Name", text: $name)
+                .focused($isNameFieldFocused)
+                .textFieldStyle(.plain)
+                .onAppear {
+                    isNameFieldFocused = true
+                }
+                .font(.title2.bold())
+                .submitLabel(.done)
+                .onSubmit {
+                    if !name.isEmpty {
+                        onSectionCreated(name)
+                    }
+                    isCreating = false
+                    isNameFieldFocused = false
+                    name = ""
+                }
+                .onChange(of: isNameFieldFocused) { print($0) }
         }
     }
 }

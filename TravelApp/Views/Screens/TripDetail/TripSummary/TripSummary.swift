@@ -12,14 +12,12 @@ struct TripSummary: View {
     @Environment(\.editMode) private var editMode
 
     let trip: Trip
-    let onBack: () -> Void
 
     @FetchRequest var lists: FetchedResults<List>
     @FetchRequest private var hubs: FetchedResults<Hub>
 
-    init(trip: Trip, onBack: @escaping () -> Void) {
+    init(trip: Trip) {
         self.trip = trip
-        self.onBack = onBack
 
         _lists = FetchRequest(
             entity: List.entity(),
@@ -121,25 +119,9 @@ struct TripSummary: View {
     var body: some View {
         VStack {
             SwiftUI.List {
-                GeometryReader { proxy in
-                    VStack {
-                        if let imageUrl = trip.image?.url {
-                            BlurHashImage(url: URL(string: imageUrl)!, blurHash: trip.image!.blurHash, size: CGSize(width: 4, height: 3))
-                        } else {
-                            Image("download")
-                        }
-                    }
-                    .frame(width: proxy.size.width, height: self.getHeightForHeaderImage(proxy))
-                    .clipped()
-                    .offset(x: 0, y: self.getOffsetForHeaderImage(proxy))
-                }
-                .frame(height: 200)
-                .listRowSeparator(.hidden)
-                .listRowInsets(EdgeInsets())
-
-                Text(trip.destination!.name!)
-                    .font(.largeTitle.bold())
+                InfoSection(trip: trip)
                     .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets())
 
                 HubsSection(trip: trip)
                     .environment(\.managedObjectContext, moc)
@@ -156,24 +138,14 @@ struct TripSummary: View {
                     createList(named: name)
                 }
                 .listRowSeparator(.hidden)
+                .listRowInsets(EdgeInsets())
+                .padding()
             }
+            .environment(\.editMode, editMode)
             .listStyle(.plain)
-            .animation(.easeOut, value: lists.count)
-            .transition(.slide)
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(trip.destination!.name!)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: onBack) {
-                    Label("Trips", systemImage: "arrow.backward")
-                        .labelStyle(.titleAndIcon)
-                }
-            }
-            ToolbarItem {
-                EditButton()
-            }
-        }
+        .animation(.easeOut, value: lists.count)
+        .transition(.asymmetric(insertion: .opacity, removal: .slide))
     }
 }
 
@@ -220,7 +192,7 @@ struct TripSummary_Previews: PreviewProvider {
 
         trip.lists = NSOrderedSet(array: [list])
 
-        return NavigationView { TripSummary(trip: trip) {}
+        return NavigationView { TripSummary(trip: trip)
             .environment(\.managedObjectContext, moc)
         }
     }

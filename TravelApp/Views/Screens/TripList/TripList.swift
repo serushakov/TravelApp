@@ -12,8 +12,7 @@ import SwiftUI
 struct TripList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.editMode) private var editMode
-
-    var onTripSelect: (Trip) -> Void
+    @State var showTripAddition = false
 
     @FetchRequest(
         entity: Trip.entity(),
@@ -21,7 +20,6 @@ struct TripList: View {
             NSSortDescriptor(keyPath: \Trip.createdAt, ascending: true)
         ]
     ) var trips: FetchedResults<Trip>
-    @State var showTripAddition = false
 
     func deleteTrip(_ trip: Trip) {
         withAnimation {
@@ -41,19 +39,20 @@ struct TripList: View {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(), GridItem()], alignment: .trailing) {
                         ForEach(trips) { trip in
-                            DeletableItem(onDelete: {
-                                deleteTrip(trip)
-                            }) {
-                                Button {
-                                    onTripSelect(trip)
-                                } label: {
+                            NavigationLink {
+                                TripDetail(trip: trip)
+                            } label: {
+                                DeletableItem(onDelete: {
+                                    deleteTrip(trip)
+                                }) {
+//
                                     TripItem(
                                         city: (trip.destination?.name!)!,
                                         country: trip.destination?.country ?? "",
                                         image: trip.image?.url,
                                         blurHash: trip.image?.blurHash
                                     )
-                                }.transition(.scale)
+                                }
                             }
                         }
 
@@ -96,7 +95,7 @@ struct TripList: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        TripList { _ in }
+        TripList()
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
