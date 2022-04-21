@@ -32,7 +32,16 @@ struct BlurHashImage: View {
                     .scaledToFill()
 
             case .failure:
-                Image(systemName: "wifi.slash")
+                ZStack {
+                    if let blurHash = self.blurHash {
+                        BlurHashView(blurHash: blurHash, size: size)
+                    }
+                    Image(systemName: "wifi.slash")
+                        .foregroundColor(.white)
+                        .padding(4)
+                        .background(.gray)
+                        .clipShape(Circle())
+                }
             @unknown default:
                 Image(systemName: "wifi.slash")
             }

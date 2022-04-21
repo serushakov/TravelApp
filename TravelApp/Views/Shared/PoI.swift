@@ -10,15 +10,23 @@ import SwiftUI
 struct PoI: View {
     let name: String
     let address: String
-    let image: String
-    let blurHash: String
+    let image: String?
+    let blurHash: String?
 
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 0) {
-                BlurHashImage(url: URL(string: image)!, blurHash: blurHash, size: CGSize(width: 4, height: 3))
-                    .frame(minHeight: 0)
-                    .clipped()
+                if let image = self.image {
+                    BlurHashImage(url: URL(string: image)!, blurHash: blurHash, size: CGSize(width: 4, height: 3))
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                        .clipped()
+                } else {
+                    Image(systemName: "photo.fill")
+                        .foregroundColor(.gray)
+                        .font(.system(size: 30))
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
+                        .background(.gray.opacity(0.12))
+                }
                 VStack(alignment: .leading, spacing: 4) {
                     Text(name)
                         .font(.footnote.bold())
