@@ -12,6 +12,7 @@ struct PoiListSection: View {
     @Environment(\.editMode) private var editMode
 
     var list: List
+    @State var showPoiAddition = false
 
     @FetchRequest private var items: FetchedResults<PointOfInterest>
     private var isEditing: Bool {
@@ -42,14 +43,12 @@ struct PoiListSection: View {
         }
     }
 
-    private func addItem() {
-        let poi1 = PointOfInterest(context: managedObjectContext)
-        poi1.name = "Louvre"
-        poi1.address = "Rue de Rivoli, 75001 Paris, France"
-        poi1.thumbnail = "https://images.unsplash.com/photo-1585843149061-096a118a5ce7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzMTQxNzd8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTAwOTY3NTQ&ixlib=rb-1.2.1&q=80&w=200"
-        poi1.blurhash = "LbD9eqf60KayNGjus:ay9Fj[-qj["
-        poi1.addedAt = Date.now
-        poi1.list = list
+    private func onAddItemClick() {
+        showPoiAddition = true
+    }
+
+    private func handleNewPoi(_ poi: PointOfInterest) {
+        poi.list = list
 
         do {
             try managedObjectContext.save()
@@ -57,6 +56,7 @@ struct PoiListSection: View {
             print(error)
             // TODO: Handle error
         }
+        showPoiAddition = false
     }
 
     private func deleteItem(poi: PointOfInterest) {
@@ -75,7 +75,7 @@ struct PoiListSection: View {
             Section {
                 ListSectionHeader(
                     title: name,
-                    onAdd: addItem,
+                    onAdd: onAddItemClick,
                     onDelete: deleteSection
                 )
                 .padding(.horizontal)
@@ -91,8 +91,8 @@ struct PoiListSection: View {
                                 PoI(
                                     name: item.name!,
                                     address: item.address!,
-                                    image: item.thumbnail!,
-                                    blurHash: item.blurhash!
+                                    image: item.thumbnail,
+                                    blurHash: item.blurhash
                                 ).frame(width: UIScreen.main.bounds.width / 2.5)
                             }
                             .transition(.scale)
@@ -101,7 +101,7 @@ struct PoiListSection: View {
 
                         if items.count == 0 {
                             Button {
-                                addItem()
+                                onAddItemClick()
                             } label: {
                                 AddItem(label: "Add new point of interest")
                                     .frame(width: UIScreen.main.bounds.width / 2.5)
@@ -114,6 +114,10 @@ struct PoiListSection: View {
                 }
                 .animation(.easeOut, value: list.items?.count)
                 .transition(.slide)
+            }.sheet(isPresented: $showPoiAddition) {
+                PoiSearch(trip: list.trip!) { handleNewPoi($0) } onClose: {
+                    showPoiAddition = false
+                }
             }
         }
     }

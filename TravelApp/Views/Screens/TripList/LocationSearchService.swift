@@ -15,6 +15,8 @@ class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterD
     @Published var completions: [MKMapItem] = []
     @Published var state: State = .idle
 
+    let poiFilter: MKPointOfInterestFilter?
+
     var completer: MKLocalSearchCompleter
     var cancellable: AnyCancellable?
 
@@ -22,9 +24,16 @@ class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterD
         case loading, idle
     }
 
-    override init() {
+    init(
+        poiFilter: MKPointOfInterestFilter? = nil,
+        region: MKCoordinateRegion? = nil
+    ) {
         self.completer = MKLocalSearchCompleter()
+        self.poiFilter = poiFilter
+        self.completer.region = region ?? MKCoordinateRegion(.world)
+
         super.init()
+
         self.cancellable = $searchQuery
             .map { value in
                 if self.state == .loading {
@@ -57,6 +66,7 @@ class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterD
     }
 
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        // Take top 5 results
         let completions = completer.results
             .prefix(5)
 
@@ -75,16 +85,9 @@ class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterD
             return try await completions
                 .asyncMap(self.fetchMapItemForCompletion)
                 .compactMap { $0 } // Filter out all nil
-                .filter(self.isCity)
         } catch {
             return []
         }
-    }
-
-    func isCity(_ item: MKMapItem) -> Bool {
-        // MKMapItem is a city when `locality`(city) matches name of the item
-        // There's really no better way to distinguish if MKMapItem is a city or not
-        return item.placemark.locality == item.name
     }
 
     func fetchMapItemForCompletion(completion: MKLocalSearchCompletion) async throws -> MKMapItem? {
@@ -92,7 +95,6 @@ class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterD
         searchRequest.region = MKCoordinateRegion(.world)
 
         let search = MKLocalSearch(request: searchRequest)
-
         let result = try await search.start()
 
         return result.mapItems.first

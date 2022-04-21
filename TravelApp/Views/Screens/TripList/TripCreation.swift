@@ -23,6 +23,18 @@ struct TripCreation: View {
         "Create a trip to \(selectedLocation?.name ?? "nil")?"
     }
 
+    var completions: [MKMapItem] {
+        locationSearchService.completions
+            .filter(isCity)
+            .compactMap { $0.placemark.title == nil ? nil : $0 }
+    }
+
+    func isCity(_ item: MKMapItem) -> Bool {
+        // MKMapItem is a city when `locality`(city) matches name of the item
+        // There's really no better way to distinguish if MKMapItem is a city or not
+        return item.placemark.locality == item.name
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             SearchBar(text: $locationSearchService.searchQuery)
@@ -35,7 +47,7 @@ struct TripCreation: View {
                 ProgressView()
                     .padding()
                 Spacer()
-            } else if !locationSearchService.searchQuery.isEmpty && locationSearchService.completions.isEmpty {
+            } else if !locationSearchService.searchQuery.isEmpty && completions.isEmpty {
                 Text("Nothing found")
                     .font(.body)
                     .foregroundColor(.secondary)
@@ -43,8 +55,7 @@ struct TripCreation: View {
                 Spacer()
             } else {
                 SwiftUI.List {
-                    ForEach(locationSearchService.completions
-                        .compactMap { $0.placemark.title == nil ? nil : $0 }) { item in
+                    ForEach(completions) { item in
                         HStack {
                             Text(item.placemark.title!)
                             Spacer()
