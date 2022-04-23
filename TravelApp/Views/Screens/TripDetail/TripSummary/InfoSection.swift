@@ -10,14 +10,13 @@ import SwiftUI
 struct InfoSection: View {
     let trip: Trip
     var body: some View {
-        LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-            ForEach(0 ... 2, id: \.self) { _ in
-                Rectangle()
-                    .foregroundColor(.gray)
-                    .aspectRatio(1, contentMode: .fill)
-                    .cornerRadius(8)
-            }
-        }.padding()
+        Section {
+            LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+                InfoItem(type: .arrival(trip.arrival ?? Date.now))
+                InfoItem(type: .departure(trip.departure ?? Date.now))
+                InfoItem(type: .weather(.cloudSun, text: "10-15℃"))
+            }.padding()
+        }
     }
 }
 
