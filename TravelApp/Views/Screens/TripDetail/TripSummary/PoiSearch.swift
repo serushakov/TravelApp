@@ -74,7 +74,7 @@ struct PoiSearch: View {
         poi.name = name
         poi.address = mapItem.placemark.title
         poi.latitude = mapItem.placemark.coordinate.latitude
-        poi.longitude = mapItem.placemark.coordinate.latitude
+        poi.longitude = mapItem.placemark.coordinate.longitude
         poi.thumbnail = photoResult?.urls.small_s3
         poi.blurhash = photoResult?.blur_hash
         poi.addedAt = Date.now
