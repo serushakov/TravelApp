@@ -13,6 +13,8 @@ struct PoiListSection: View {
 
     var list: List
     @State var showPoiAddition = false
+    @State var showPoiDetail = false
+    @State var poiDetail: PointOfInterest? = nil
 
     @FetchRequest private var items: FetchedResults<PointOfInterest>
     private var isEditing: Bool {
@@ -85,18 +87,22 @@ struct PoiListSection: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(items) { item in
-                            DeletableItem(onDelete: {
-                                deleteItem(poi: item)
-                            }) {
-                                PoI(
-                                    name: item.name!,
-                                    address: item.address!,
-                                    image: item.thumbnail,
-                                    blurHash: item.blurhash
-                                ).frame(width: UIScreen.main.bounds.width / 2.5)
-                            }
-                            .transition(.scale)
-                            .environment(\.editMode, editMode)
+                            Button {
+                                poiDetail = item
+                            } label: {
+                                DeletableItem(onDelete: {
+                                    deleteItem(poi: item)
+                                }) {
+                                    PoI(
+                                        name: item.name!,
+                                        address: item.address!,
+                                        image: item.thumbnail,
+                                        blurHash: item.blurhash
+                                    ).frame(width: UIScreen.main.bounds.width / 2.5)
+                                }
+                                .transition(.scale)
+                                .environment(\.editMode, editMode)
+                            }.buttonStyle(.plain)
                         }
 
                         if items.count == 0 {
@@ -114,9 +120,15 @@ struct PoiListSection: View {
                 }
                 .animation(.easeOut, value: list.items?.count)
                 .transition(.slide)
-            }.sheet(isPresented: $showPoiAddition) {
+            }
+            .sheet(isPresented: $showPoiAddition) {
                 PoiSearch(trip: list.trip!) { handleNewPoi($0) } onClose: {
                     showPoiAddition = false
+                }
+            }
+            .sheet(item: $poiDetail) { item in
+                PoiDetails(poi: item) {
+                    poiDetail = nil
                 }
             }
         }

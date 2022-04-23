@@ -37,6 +37,7 @@
 		648B97D3280BFF3A00B3BFFC /* DeletableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648B97D2280BFF3A00B3BFFC /* DeletableItem.swift */; };
 		64C3214E2801786C00AE7357 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C3214D2801786C00AE7357 /* Tag.swift */; };
 		64C321502801794900AE7357 /* TripList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C3214F2801794900AE7357 /* TripList.swift */; };
+		64C8B0E42811406F00A0397B /* PoiDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C8B0E32811406F00A0397B /* PoiDetails.swift */; };
 		64CA9912280AB66A0047234D /* PoI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64CA9911280AB66A0047234D /* PoI.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +74,7 @@
 		648B97D2280BFF3A00B3BFFC /* DeletableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableItem.swift; sourceTree = "<group>"; };
 		64C3214D2801786C00AE7357 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		64C3214F2801794900AE7357 /* TripList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripList.swift; sourceTree = "<group>"; };
+		64C8B0E32811406F00A0397B /* PoiDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiDetails.swift; sourceTree = "<group>"; };
 		64CA9911280AB66A0047234D /* PoI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 				64506D78280C62D9004AD576 /* ListSectionHeader.swift */,
 				64725DDF280EF262002D8967 /* InfoSection.swift */,
 				64725DE3280F2319002D8967 /* PoiSearch.swift */,
+				64C8B0E32811406F00A0397B /* PoiDetails.swift */,
 			);
 			path = TripSummary;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				64C3214E2801786C00AE7357 /* Tag.swift in Sources */,
 				64CA9912280AB66A0047234D /* PoI.swift in Sources */,
 				6409D3BD280ABFAD00188FFA /* CreateListSection.swift in Sources */,
+				64C8B0E42811406F00A0397B /* PoiDetails.swift in Sources */,
 				645AB1382807E3E200E89B68 /* SheetHeader.swift in Sources */,
 				645DFA3A27FDE6440013A3B1 /* SearchBar.swift in Sources */,
 				64725DE4280F2319002D8967 /* PoiSearch.swift in Sources */,
@@ -445,6 +449,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravelApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs your location to calculate travel estimates to your saved locations.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -475,6 +480,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravelApp/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs your location to calculate travel estimates to your saved locations.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
