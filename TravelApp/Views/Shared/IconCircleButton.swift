@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct DeleteItemButton: View {
+struct IconCircleButton: View {
+    var systemImage: String
     var action: () -> Void
 
     var body: some View {
         Button(action: action, label: {
-            Label("Delete", systemImage: "minus")
-                .labelStyle(.iconOnly)
+            Image(systemName: systemImage)
                 .foregroundColor(.secondary)
                 .font(.title2)
                 .padding(16)
@@ -21,12 +21,11 @@ struct DeleteItemButton: View {
             .frame(width: 30, height: 30)
             .background(.ultraThickMaterial)
             .clipShape(Circle())
-
     }
 }
 
 struct DeleteItemButton_Previews: PreviewProvider {
     static var previews: some View {
-        DeleteItemButton {}
+        IconCircleButton(systemImage: "minus") {}
     }
 }

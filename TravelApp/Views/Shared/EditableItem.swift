@@ -7,15 +7,37 @@
 
 import SwiftUI
 
-struct DeletableItem<Content: View>: View {
+enum ActionType {
+    case edit
+    case delete
+}
+
+struct EditableItem<Content: View>: View {
     @Environment(\.editMode) private var editMode
 
     var content: Content
+    var type: ActionType
     var onDelete: () -> Void
 
     init(onDelete: @escaping () -> Void, @ViewBuilder _ content: () -> Content) {
         self.onDelete = onDelete
         self.content = content()
+        self.type = .delete
+    }
+
+    init(type: ActionType, @ViewBuilder _ content: () -> Content, onEdit: @escaping () -> Void) {
+        self.onDelete = onEdit
+        self.content = content()
+        self.type = type
+    }
+
+    var systemImage: String {
+        switch type {
+        case .delete:
+            return "minus"
+        case .edit:
+            return "pencil"
+        }
     }
 
     var body: some View {
@@ -25,31 +47,27 @@ struct DeletableItem<Content: View>: View {
             content
 
             if editMode?.wrappedValue == EditMode.active {
-                DeleteItemButton {
+                IconCircleButton(systemImage: systemImage) {
                     onDelete()
                 }
                 .offset(x: -12, y: -12)
-
                 .transition(.asymmetric(
                     insertion: .scale(scale: 0, anchor: UnitPoint.topLeading),
                     removal: .opacity)
                 )
-                .zIndex(1)
+                .zIndex(2)
             }
         }
         .animation(.easeOut, value: editMode?.wrappedValue)
         .scaleEffect(scale)
         .animation(.spring(), value: scale)
         .transition(.scale)
-        .onChange(of: editMode?.wrappedValue) { value in
-            print(value)
-        }
     }
 }
 
 struct EditableItem_Previews: PreviewProvider {
     static var previews: some View {
-        DeletableItem(onDelete: {}) {
+        EditableItem(onDelete: {}) {
             Rectangle()
                 .frame(width: 100, height: 100)
                 .cornerRadius(8)

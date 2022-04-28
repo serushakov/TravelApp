@@ -32,7 +32,7 @@ struct PoiSearch: View {
 
         let region = PoiSearch.getTripRegion(trip: trip)
 
-        self._locationSearchService = StateObject(wrappedValue: LocationSearchService(
+        _locationSearchService = StateObject(wrappedValue: LocationSearchService(
             region: region
         ))
     }
@@ -200,6 +200,6 @@ struct PoiSearch_Previews: PreviewProvider {
         destination.radius = 28782
         trip.createdAt = Date.now
 
-        return PoiSearch(trip: trip) { _ in } onClose: {}
+        return PoiSearch(trip: trip, onPoiPicked: { _ in }) {}
     }
 }

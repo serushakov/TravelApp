@@ -16,8 +16,8 @@ enum Weather {
 }
 
 enum Type {
-    case arrival(_ date: Date)
-    case departure(_ date: Date)
+    case arrival(_ text: String)
+    case departure(_ text: String)
     case weather(_ weather: Weather, text: String)
 }
 
@@ -28,8 +28,8 @@ struct InfoItem: View {
 
     private func getText() -> String {
         switch type {
-        case .arrival(_: let date), .departure(_: let date):
-            return date.formatted(Date.FormatStyle().month().day(.defaultDigits))
+        case .arrival(_: let text), .departure(_: let text):
+            return text
 
         case .weather(_: _, text: let text):
             return text
@@ -41,36 +41,28 @@ struct InfoItem: View {
         case .arrival:
             return AnyView(
                 Image(systemName: "airplane.arrival")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.cyan, colorScheme == .light ? .black : .white)
             )
         case .departure:
             return AnyView(
                 Image(systemName: "airplane.departure")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.cyan, colorScheme == .light ? .black : .white)
             )
         case .weather(_: let type, text: _):
             switch type {
             case .cloudSun:
                 return AnyView(Image(systemName: "cloud.sun.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.cyan, .yellow))
+                    .symbolRenderingMode(.multicolor))
             case .cloudy:
                 return AnyView(Image(systemName: "cloud.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.cyan, .white))
+                    .symbolRenderingMode(.multicolor))
             case .sun:
                 return AnyView(Image(systemName: "sun.max.fill")
                     .symbolRenderingMode(.multicolor))
             case .rain:
                 return AnyView(Image(systemName: "cloud.rain.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.cyan, .white))
+                    .symbolRenderingMode(.multicolor))
             case .snow:
                 return AnyView(Image(systemName: "cloud.snow.fill")
-                    .foregroundStyle(.cyan, .white)
-                    .symbolRenderingMode(.palette))
+                    .symbolRenderingMode(.multicolor))
             }
         }
     }
@@ -79,6 +71,7 @@ struct InfoItem: View {
         VStack(alignment: .leading, spacing: 8) {
             getIcon()
                 .font(.system(size: 30))
+
             Spacer()
             Text(getText())
                 .font(.title3.bold())
@@ -86,7 +79,8 @@ struct InfoItem: View {
         .aspectRatio(1, contentMode: .fit)
         .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
         .padding(8)
-        .background { ElevatedBackground() }
+        .foregroundColor(.white)
+        .background(.cyan)
         .cornerRadius(8)
         .shadow(color: .gray.opacity(0.24), radius: 4)
     }
@@ -95,10 +89,10 @@ struct InfoItem: View {
 struct InfoItem_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            InfoItem(type: .arrival(Date.now))
+            InfoItem(type: .arrival("25. May"))
                 .frame(width: 120)
                 .padding()
-            InfoItem(type: .departure(Date.now))
+            InfoItem(type: .departure("01. Jun"))
                 .frame(width: 120)
                 .padding()
             InfoItem(type: .weather(.sun, text: "10-15℃"))

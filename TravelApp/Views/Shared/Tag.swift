@@ -7,12 +7,22 @@
 
 import SwiftUI
 
-struct Tag: View {
-    let text: String
+struct Tag<Content>: View where Content: View {
+    let content: Content
     let color: Color
 
+    init(_ text: String, color: Color) where Content == Text {
+        self.color = color
+        self.content = Text(text)
+    }
+
+    init(color: Color, @ViewBuilder content: () -> Content) {
+        self.content = content()
+        self.color = color
+    }
+
     var body: some View {
-        Text(text)
+        content
             .font(.caption.bold())
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
@@ -25,8 +35,8 @@ struct Tag: View {
 struct Tag_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Tag(text: "Tag", color: Color.green)
-            Tag(text: "Tag", color: Color.blue)
+            Tag("Tag", color: Color.green)
+            Tag("Tag", color: Color.blue)
         }
         .padding()
         .previewLayout(.sizeThatFits)

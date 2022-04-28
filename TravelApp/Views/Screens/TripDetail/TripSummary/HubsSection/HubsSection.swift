@@ -2,10 +2,12 @@ import SwiftUI
 
 struct HubsSection: View {
     @Environment(\.managedObjectContext) private var moc
+    @Environment(\.editMode) private var editMode
 
     let trip: Trip
 
-    @Environment(\.editMode) private var editMode
+    @State var showHubAddition = false
+    @State var hubDetail: Hub? = nil
     @FetchRequest private var hubs: FetchedResults<Hub>
 
     init(trip: Trip) {
@@ -20,13 +22,9 @@ struct HubsSection: View {
         )
     }
 
-    private func addHub() {
-        let hub = Hub(context: moc)
-        hub.name = "Hotel Whatever"
-        hub.checkIn = Date.now
-        hub.checkOut = Date.now
+    private func addHub(_ hub: Hub) {
+        showHubAddition = false
         hub.trip = trip
-        hub.addedAt = Date.now
 
         do {
             try moc.save()
@@ -53,27 +51,44 @@ struct HubsSection: View {
 
     var body: some View {
         Section {
-            ListSectionHeader(title: "Hubs", onAdd: addHub)
+            ListSectionHeader(title: "Hotels or stays") { showHubAddition = true }
                 .padding(.horizontal)
                 .padding(.bottom, 8)
 
             ForEach(hubs) { hub in
-                Button {} label: {
+                Button {
+                    hubDetail = hub
+                } label: {
                     HStack {
-                        Text(hub.name!)
+                        VStack(alignment: .leading) {
+                            Text(hub.name!)
+                            Text(hub.address ?? "")
+                                .foregroundColor(.secondary)
+                                .font(.caption)
+                        }
                         Spacer()
                         Image(systemName: "chevron.forward")
                             .foregroundColor(.blue)
                             .font(.title3)
                     }.padding(.trailing)
                 }
-                .listRowSeparator(.automatic)
+                .listRowSeparator(.visible)
                 .padding(.leading)
             }
             .onDelete(perform: handleDelete)
+            .environment(\.editMode, editMode)
         }
         .listRowSeparator(.hidden)
         .listRowInsets(EdgeInsets())
+        .sheet(isPresented: $showHubAddition) {
+            HubSearch(trip: trip, onHubPicked: addHub) { showHubAddition = false }
+                .environment(\.managedObjectContext, moc)
+        }
+        .sheet(item: $hubDetail) { hub in
+            HubDetails(hub: hub) {
+                hubDetail = nil
+            }
+        }
     }
 }
 

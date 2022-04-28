@@ -42,10 +42,9 @@ struct TripList: View {
                             NavigationLink {
                                 TripDetail(trip: trip)
                             } label: {
-                                DeletableItem(onDelete: {
+                                EditableItem(onDelete: {
                                     deleteTrip(trip)
                                 }) {
-//
                                     TripItem(
                                         city: (trip.destination?.name!)!,
                                         country: trip.destination?.country ?? "",
@@ -76,17 +75,9 @@ struct TripList: View {
                     }
                 }
             }
-
             .sheet(isPresented: $showTripAddition) {
-                VStack(spacing: 0) {
-                    SheetHeader(title: "New trip") {
-                        showTripAddition = false
-                    }
-
-                    TripCreation(isVisible: showTripAddition) { _ in
-                        showTripAddition = false
-                    }
-                    .environment(\.managedObjectContext, managedObjectContext)
+                TripCreation {
+                    showTripAddition = false
                 }
             }
         }

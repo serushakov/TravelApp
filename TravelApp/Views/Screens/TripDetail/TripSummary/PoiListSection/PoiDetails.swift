@@ -49,14 +49,10 @@ struct PoiDetails: View {
     @State var estimate: Double? = nil
 
     var location: CLLocationCoordinate2D {
-        let a = CLLocationCoordinate2D(
+        CLLocationCoordinate2D(
             latitude: poi.latitude,
             longitude: poi.longitude
         )
-
-        print(a)
-
-        return a
     }
 
     func getTravelEstimate(from startLocation: CLLocationCoordinate2D) {
@@ -118,9 +114,6 @@ struct PoiDetails: View {
                             if let location = value {
                                 getTravelEstimate(from: location)
                             }
-                        }
-                        .onChange(of: estimate) { estimate in
-                            print("estimate: \(estimate)")
                         }
 
                     Button {} label: {

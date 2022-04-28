@@ -90,7 +90,7 @@ struct PoiListSection: View {
                             Button {
                                 poiDetail = item
                             } label: {
-                                DeletableItem(onDelete: {
+                                EditableItem(onDelete: {
                                     deleteItem(poi: item)
                                 }) {
                                     PoI(

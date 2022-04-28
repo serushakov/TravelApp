@@ -5,6 +5,7 @@
 //  Created by Sergey Ushakov on 14.4.2022.
 //
 
+import Introspect
 import SwiftUI
 
 struct TripSummary: View {
@@ -117,35 +118,40 @@ struct TripSummary: View {
     }
 
     var body: some View {
-        VStack {
-            SwiftUI.List {
-                InfoSection(trip: trip)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets())
-
-                HubsSection(trip: trip)
-                    .environment(\.managedObjectContext, moc)
-                    .listRowSeparator(.hidden)
-
-                ForEach(lists) { list in
-                    PoiListSection(list: list)
-                        .environment(\.managedObjectContext, moc)
-                        .listRowInsets(EdgeInsets())
-                        .listRowSeparator(.hidden)
-                }
-
-                CreateListSection { name in
-                    createList(named: name)
-                }
+        SwiftUI.List {
+            InfoSection(trip: trip)
                 .listRowSeparator(.hidden)
                 .listRowInsets(EdgeInsets())
-                .padding()
+                .listRowBackground(Color.clear)
+                .environment(\.editMode, editMode)
+                .environment(\.managedObjectContext, moc)
+
+            HubsSection(trip: trip)
+                .listRowSeparator(.hidden)
+                .environment(\.editMode, editMode)
+                .environment(\.managedObjectContext, moc)
+
+            ForEach(lists) { list in
+                PoiListSection(list: list)
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .environment(\.editMode, editMode)
+                    .environment(\.managedObjectContext, moc)
             }
+
+            CreateListSection { name in
+                createList(named: name)
+            }
+            .listRowSeparator(.hidden)
+            .listRowInsets(EdgeInsets())
             .environment(\.editMode, editMode)
-            .listStyle(.plain)
+            .padding()
         }
+
         .animation(.easeOut, value: lists.count)
         .transition(.asymmetric(insertion: .opacity, removal: .slide))
+
+        .listStyle(.plain)
     }
 }
 

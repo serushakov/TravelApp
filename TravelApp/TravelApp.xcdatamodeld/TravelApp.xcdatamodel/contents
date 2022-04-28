@@ -6,10 +6,13 @@
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="arrival" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PointOfInterest"/>
+        <relationship name="departure" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PointOfInterest"/>
         <relationship name="trip" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="destination" inverseEntity="Trip"/>
     </entity>
     <entity name="Hub" representedClassName="Hub" syncable="YES" codeGenerationType="class">
         <attribute name="addedAt" attributeType="Date" defaultDateTimeInterval="671902320" usesScalarValueType="NO"/>
+        <attribute name="address" attributeType="String" defaultValueString=""/>
         <attribute name="checkIn" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="checkOut" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -31,25 +34,25 @@
     <entity name="PointOfInterest" representedClassName="PointOfInterest" syncable="YES" codeGenerationType="class">
         <attribute name="addedAt" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="address" attributeType="String"/>
-        <attribute name="blurhash" attributeType="String"/>
+        <attribute name="blurhash" optional="YES" attributeType="String"/>
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <attribute name="thumbnail" attributeType="String"/>
+        <attribute name="thumbnail" optional="YES" attributeType="String"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="items" inverseEntity="List"/>
     </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES" codeGenerationType="class">
-        <attribute name="arrival" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="arrival" attributeType="Date" defaultDateTimeInterval="672411000" usesScalarValueType="NO"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="departure" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="departure" attributeType="Date" defaultDateTimeInterval="672411000" usesScalarValueType="NO"/>
         <relationship name="destination" maxCount="1" deletionRule="Nullify" destinationEntity="Destination" inverseName="trip" inverseEntity="Destination"/>
         <relationship name="hubs" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Hub" inverseName="trip" inverseEntity="Hub"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageWithBlurHash"/>
         <relationship name="lists" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="List" inverseName="trip" inverseEntity="List"/>
     </entity>
     <elements>
-        <element name="Destination" positionX="-36" positionY="63" width="128" height="14"/>
-        <element name="Hub" positionX="-18" positionY="63" width="128" height="134"/>
+        <element name="Destination" positionX="-36" positionY="63" width="128" height="149"/>
+        <element name="Hub" positionX="-18" positionY="63" width="128" height="149"/>
         <element name="ImageWithBlurHash" positionX="-36" positionY="81" width="128" height="74"/>
         <element name="List" positionX="-36" positionY="36" width="128" height="89"/>
         <element name="PointOfInterest" positionX="-54" positionY="0" width="128" height="149"/>
