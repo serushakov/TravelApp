@@ -42,6 +42,9 @@
 		6463A56A281D287F00E34B33 /* TravelStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A569281D287F00E34B33 /* TravelStep.swift */; };
 		6463A56C281D29CB00E34B33 /* HubStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A56B281D29CB00E34B33 /* HubStep.swift */; };
 		6463A56F281D2D0E00E34B33 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A56E281D2D0E00E34B33 /* StepView.swift */; };
+		6463A571281D34B500E34B33 /* AddStepButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A570281D34B500E34B33 /* AddStepButton.swift */; };
+		6463A573281D350600E34B33 /* StepCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A572281D350600E34B33 /* StepCreation.swift */; };
+		6463A575281D392900E34B33 /* StepForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A574281D392900E34B33 /* StepForm.swift */; };
 		64725DE0280EF262002D8967 /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DDF280EF262002D8967 /* InfoSection.swift */; };
 		64725DE4280F2319002D8967 /* PoiSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DE3280F2319002D8967 /* PoiSearch.swift */; };
 		647EA9612813E93A000E7E5D /* InfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647EA9602813E93A000E7E5D /* InfoItem.swift */; };
@@ -92,6 +95,9 @@
 		6463A569281D287F00E34B33 /* TravelStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelStep.swift; sourceTree = "<group>"; };
 		6463A56B281D29CB00E34B33 /* HubStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubStep.swift; sourceTree = "<group>"; };
 		6463A56E281D2D0E00E34B33 /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
+		6463A570281D34B500E34B33 /* AddStepButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepButton.swift; sourceTree = "<group>"; };
+		6463A572281D350600E34B33 /* StepCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCreation.swift; sourceTree = "<group>"; };
+		6463A574281D392900E34B33 /* StepForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepForm.swift; sourceTree = "<group>"; };
 		64725DDF280EF262002D8967 /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
 		64725DE3280F2319002D8967 /* PoiSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiSearch.swift; sourceTree = "<group>"; };
 		647EA9602813E93A000E7E5D /* InfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItem.swift; sourceTree = "<group>"; };
@@ -293,6 +299,9 @@
 				6463A569281D287F00E34B33 /* TravelStep.swift */,
 				6463A56B281D29CB00E34B33 /* HubStep.swift */,
 				6463A56E281D2D0E00E34B33 /* StepView.swift */,
+				6463A570281D34B500E34B33 /* AddStepButton.swift */,
+				6463A572281D350600E34B33 /* StepCreation.swift */,
+				6463A574281D392900E34B33 /* StepForm.swift */,
 			);
 			path = TripDayItinerary;
 			sourceTree = "<group>";
@@ -392,9 +401,11 @@
 				6463A56F281D2D0E00E34B33 /* StepView.swift in Sources */,
 				645AEA3D280AA98200B6542E /* PoiListSection.swift in Sources */,
 				6407547128081EE70061F867 /* TripDaysList.swift in Sources */,
+				6463A575281D392900E34B33 /* StepForm.swift in Sources */,
 				645AB1432807FF2D00E89B68 /* BlurHashImage.swift in Sources */,
 				6463A565281A83DE00E34B33 /* TripDayItinerary.swift in Sources */,
 				6424B9762803592C00779615 /* IconCircleButton.swift in Sources */,
+				6463A573281D350600E34B33 /* StepCreation.swift in Sources */,
 				6463A55C281A769000E34B33 /* HubDetails.swift in Sources */,
 				6459E33627F2281900FF69C3 /* TripItem.swift in Sources */,
 				64C321502801794900AE7357 /* TripList.swift in Sources */,
@@ -404,6 +415,7 @@
 				6463A56A281D287F00E34B33 /* TravelStep.swift in Sources */,
 				6463A559281A63A700E34B33 /* HubSearch.swift in Sources */,
 				64C3214E2801786C00AE7357 /* Tag.swift in Sources */,
+				6463A571281D34B500E34B33 /* AddStepButton.swift in Sources */,
 				64CA9912280AB66A0047234D /* PoI.swift in Sources */,
 				6409D3BD280ABFAD00188FFA /* CreateListSection.swift in Sources */,
 				64C8B0E42811406F00A0397B /* PoiDetails.swift in Sources */,

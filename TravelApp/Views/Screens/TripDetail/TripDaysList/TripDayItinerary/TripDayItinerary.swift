@@ -17,6 +17,8 @@ struct TripDayItinerary: View {
     @FetchRequest private var hubs: FetchedResults<Hub>
     @FetchRequest private var steps: FetchedResults<Step>
 
+    @State var showStepCreation = false
+
     init(trip: Trip, day: Date) {
         self.trip = trip
         self.day = day
@@ -88,22 +90,21 @@ struct TripDayItinerary: View {
                         }
                     }
                     StepDivider(walkEstimate: .none, busEstimate: .none)
-                    Button {} label: {
-                        HStack(alignment: .center) {
-                            Image(systemName: "plus.circle")
-                                .font(.largeTitle)
-                                .padding(.vertical, -2)
-//                            .padding(.horizontal, 16)
-
-                            Text("Add step")
-                                .font(.body.bold())
-                        }
+                    Button {
+                        showStepCreation = true
+                    } label: {
+                        AddStepButton()
                     }
                 }
             }
         }
         .padding(.horizontal)
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showStepCreation) {
+            StepCreation(trip: trip) {
+                showStepCreation = false
+            }
+        }
     }
 }
 
