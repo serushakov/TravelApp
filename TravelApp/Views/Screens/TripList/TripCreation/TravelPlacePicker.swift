@@ -22,6 +22,7 @@ struct TravelPlacePicker: View {
         poi.address = mapItem.placemark.title
         poi.latitude = mapItem.placemark.coordinate.latitude
         poi.longitude = mapItem.placemark.coordinate.longitude
+        poi.addedAt = Date.now
 
         place = poi
         dismiss()

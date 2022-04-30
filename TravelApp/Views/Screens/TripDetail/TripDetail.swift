@@ -40,7 +40,7 @@ struct TripDetail: View {
                 .tag(Tab.summary)
                 .environment(\.editMode, editMode)
 
-            TripDaysList()
+            TripDaysList(trip: trip)
                 .tabItem {
                     Image(systemName: "calendar")
                     Text("Days")

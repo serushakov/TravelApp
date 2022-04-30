@@ -41,6 +41,16 @@
         <attribute name="thumbnail" optional="YES" attributeType="String"/>
         <relationship name="list" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="List" inverseName="items" inverseEntity="List"/>
     </entity>
+    <entity name="StartStep" representedClassName="StartStep" syncable="YES" codeGenerationType="class">
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="trip" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="startSteps" inverseEntity="Trip"/>
+    </entity>
+    <entity name="Step" representedClassName="Step" syncable="YES" codeGenerationType="class">
+        <attribute name="visitEnd" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="visitStart" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="poi" maxCount="1" deletionRule="Nullify" destinationEntity="PointOfInterest"/>
+        <relationship name="trip" maxCount="1" deletionRule="Nullify" destinationEntity="Trip" inverseName="steps" inverseEntity="Trip"/>
+    </entity>
     <entity name="Trip" representedClassName="Trip" syncable="YES" codeGenerationType="class">
         <attribute name="arrival" attributeType="Date" defaultDateTimeInterval="672411000" usesScalarValueType="NO"/>
         <attribute name="createdAt" attributeType="Date" usesScalarValueType="NO"/>
@@ -49,6 +59,8 @@
         <relationship name="hubs" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Hub" inverseName="trip" inverseEntity="Hub"/>
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ImageWithBlurHash"/>
         <relationship name="lists" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="List" inverseName="trip" inverseEntity="List"/>
+        <relationship name="startSteps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StartStep" inverseName="trip" inverseEntity="StartStep"/>
+        <relationship name="steps" toMany="YES" deletionRule="Nullify" destinationEntity="Step" inverseName="trip" inverseEntity="Step"/>
     </entity>
     <elements>
         <element name="Destination" positionX="-36" positionY="63" width="128" height="149"/>
@@ -56,6 +68,8 @@
         <element name="ImageWithBlurHash" positionX="-36" positionY="81" width="128" height="74"/>
         <element name="List" positionX="-36" positionY="36" width="128" height="89"/>
         <element name="PointOfInterest" positionX="-54" positionY="0" width="128" height="149"/>
-        <element name="Trip" positionX="-63" positionY="-9" width="128" height="134"/>
+        <element name="Trip" positionX="-63" positionY="-9" width="128" height="164"/>
+        <element name="Step" positionX="-36" positionY="99" width="128" height="89"/>
+        <element name="StartStep" positionX="-27" positionY="108" width="128" height="59"/>
     </elements>
 </model>

@@ -5,7 +5,6 @@
 //  Created by Sergey Ushakov on 14.4.2022.
 //
 
-import Introspect
 import SwiftUI
 
 struct TripSummary: View {

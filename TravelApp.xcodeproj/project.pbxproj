@@ -37,6 +37,11 @@
 		6463A55C281A769000E34B33 /* HubDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A55B281A769000E34B33 /* HubDetails.swift */; };
 		6463A560281A76C100E34B33 /* TripEditForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A55F281A76C100E34B33 /* TripEditForm.swift */; };
 		6463A562281A798E00E34B33 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A561281A798E00E34B33 /* View.swift */; };
+		6463A565281A83DE00E34B33 /* TripDayItinerary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A564281A83DE00E34B33 /* TripDayItinerary.swift */; };
+		6463A568281D26AD00E34B33 /* StepDivider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A567281D26AD00E34B33 /* StepDivider.swift */; };
+		6463A56A281D287F00E34B33 /* TravelStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A569281D287F00E34B33 /* TravelStep.swift */; };
+		6463A56C281D29CB00E34B33 /* HubStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A56B281D29CB00E34B33 /* HubStep.swift */; };
+		6463A56F281D2D0E00E34B33 /* StepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A56E281D2D0E00E34B33 /* StepView.swift */; };
 		64725DE0280EF262002D8967 /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DDF280EF262002D8967 /* InfoSection.swift */; };
 		64725DE4280F2319002D8967 /* PoiSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DE3280F2319002D8967 /* PoiSearch.swift */; };
 		647EA9612813E93A000E7E5D /* InfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647EA9602813E93A000E7E5D /* InfoItem.swift */; };
@@ -82,6 +87,11 @@
 		6463A55B281A769000E34B33 /* HubDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubDetails.swift; sourceTree = "<group>"; };
 		6463A55F281A76C100E34B33 /* TripEditForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEditForm.swift; sourceTree = "<group>"; };
 		6463A561281A798E00E34B33 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		6463A564281A83DE00E34B33 /* TripDayItinerary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDayItinerary.swift; sourceTree = "<group>"; };
+		6463A567281D26AD00E34B33 /* StepDivider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDivider.swift; sourceTree = "<group>"; };
+		6463A569281D287F00E34B33 /* TravelStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelStep.swift; sourceTree = "<group>"; };
+		6463A56B281D29CB00E34B33 /* HubStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubStep.swift; sourceTree = "<group>"; };
+		6463A56E281D2D0E00E34B33 /* StepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepView.swift; sourceTree = "<group>"; };
 		64725DDF280EF262002D8967 /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
 		64725DE3280F2319002D8967 /* PoiSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiSearch.swift; sourceTree = "<group>"; };
 		647EA9602813E93A000E7E5D /* InfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItem.swift; sourceTree = "<group>"; };
@@ -229,9 +239,9 @@
 		645AB14828080EDA00E89B68 /* TripDetail */ = {
 			isa = PBXGroup;
 			children = (
+				6463A563281A83B200E34B33 /* TripDaysList */,
 				6409D3BB280ABF9000188FFA /* TripSummary */,
 				645AB14928080EEA00E89B68 /* TripDetail.swift */,
-				6407547028081EE70061F867 /* TripDaysList.swift */,
 			);
 			path = TripDetail;
 			sourceTree = "<group>";
@@ -264,6 +274,27 @@
 				6463A55F281A76C100E34B33 /* TripEditForm.swift */,
 			);
 			path = InfoSection;
+			sourceTree = "<group>";
+		};
+		6463A563281A83B200E34B33 /* TripDaysList */ = {
+			isa = PBXGroup;
+			children = (
+				6463A566281D269700E34B33 /* TripDayItinerary */,
+				6407547028081EE70061F867 /* TripDaysList.swift */,
+			);
+			path = TripDaysList;
+			sourceTree = "<group>";
+		};
+		6463A566281D269700E34B33 /* TripDayItinerary */ = {
+			isa = PBXGroup;
+			children = (
+				6463A564281A83DE00E34B33 /* TripDayItinerary.swift */,
+				6463A567281D26AD00E34B33 /* StepDivider.swift */,
+				6463A569281D287F00E34B33 /* TravelStep.swift */,
+				6463A56B281D29CB00E34B33 /* HubStep.swift */,
+				6463A56E281D2D0E00E34B33 /* StepView.swift */,
+			);
+			path = TripDayItinerary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,6 +380,7 @@
 				645DFA3827FDE5ED0013A3B1 /* LocationSearchService.swift in Sources */,
 				6432732728152B7B00B426F9 /* TravelPlacePicker.swift in Sources */,
 				6463A560281A76C100E34B33 /* TripEditForm.swift in Sources */,
+				6463A568281D26AD00E34B33 /* StepDivider.swift in Sources */,
 				64506D77280C62BF004AD576 /* HubsSection.swift in Sources */,
 				6432732528152A7A00B426F9 /* TripDetailsForm.swift in Sources */,
 				647EA96328140C3E000E7E5D /* ElevatedBackground.swift in Sources */,
@@ -357,9 +389,11 @@
 				648B97D3280BFF3A00B3BFFC /* EditableItem.swift in Sources */,
 				64506D79280C62D9004AD576 /* ListSectionHeader.swift in Sources */,
 				64725DE0280EF262002D8967 /* InfoSection.swift in Sources */,
+				6463A56F281D2D0E00E34B33 /* StepView.swift in Sources */,
 				645AEA3D280AA98200B6542E /* PoiListSection.swift in Sources */,
 				6407547128081EE70061F867 /* TripDaysList.swift in Sources */,
 				645AB1432807FF2D00E89B68 /* BlurHashImage.swift in Sources */,
+				6463A565281A83DE00E34B33 /* TripDayItinerary.swift in Sources */,
 				6424B9762803592C00779615 /* IconCircleButton.swift in Sources */,
 				6463A55C281A769000E34B33 /* HubDetails.swift in Sources */,
 				6459E33627F2281900FF69C3 /* TripItem.swift in Sources */,
@@ -367,6 +401,7 @@
 				645AB13A2807F16800E89B68 /* ThumbnailSearchService.swift in Sources */,
 				647EA96728141336000E7E5D /* TripCreation.swift in Sources */,
 				6424B974280327C400779615 /* TravelApp.xcdatamodeld in Sources */,
+				6463A56A281D287F00E34B33 /* TravelStep.swift in Sources */,
 				6463A559281A63A700E34B33 /* HubSearch.swift in Sources */,
 				64C3214E2801786C00AE7357 /* Tag.swift in Sources */,
 				64CA9912280AB66A0047234D /* PoI.swift in Sources */,
@@ -376,6 +411,7 @@
 				647EA9612813E93A000E7E5D /* InfoItem.swift in Sources */,
 				645DFA3A27FDE6440013A3B1 /* SearchBar.swift in Sources */,
 				64725DE4280F2319002D8967 /* PoiSearch.swift in Sources */,
+				6463A56C281D29CB00E34B33 /* HubStep.swift in Sources */,
 				6463A562281A798E00E34B33 /* View.swift in Sources */,
 				645AB14A28080EEA00E89B68 /* TripDetail.swift in Sources */,
 				645AB13F2807F86300E89B68 /* BlurHashDecode.swift in Sources */,
