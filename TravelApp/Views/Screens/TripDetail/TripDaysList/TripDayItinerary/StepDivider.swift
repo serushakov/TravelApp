@@ -42,6 +42,7 @@ struct StepDivider: View {
         if let text = text {
             return AnyView(Tag(color: .green) {
                 Label(text, systemImage: "figure.walk")
+
             })
         } else {
             return AnyView(EmptyView())

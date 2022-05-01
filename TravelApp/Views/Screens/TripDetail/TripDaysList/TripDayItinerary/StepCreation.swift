@@ -8,14 +8,20 @@
 import SwiftUI
 
 struct StepCreation: View {
+    let day: Date
     let trip: Trip
+    let prevStep: StepDescriptor
     let onFinished: () -> Void
 
     @FetchRequest private var lists: FetchedResults<List>
 
-    init(trip: Trip, onFinished: @escaping () -> Void) {
+    init(day: Date, trip: Trip, prevStep: StepDescriptor, onFinished: @escaping () -> Void) {
+        self.day = day
         self.trip = trip
+        self.prevStep = prevStep
         self.onFinished = onFinished
+
+        print(prevStep)
 
         _lists = FetchRequest(
             entity: List.entity(),
@@ -26,16 +32,28 @@ struct StepCreation: View {
         )
     }
 
+    func getPois(of list: List) -> [PointOfInterest] {
+        let array = list.mutableOrderedSetValue(forKey: "items").array
+
+        return array as! [PointOfInterest]
+    }
+
     var body: some View {
         NavigationView {
             SwiftUI.List {
                 ForEach(lists) { list in
                     Section(list.name!) {
-                        ForEach(list.mutableOrderedSetValue(forKey: "items").array as! [PointOfInterest]) { item in
+                        ForEach(getPois(of: list)) { element in
                             NavigationLink {
-                                StepForm(poi: item, trip: trip, onFinished: onFinished)
+                                StepForm(
+                                    day: day,
+                                    poi: element,
+                                    prevStep: prevStep,
+                                    trip: trip,
+                                    onFinished: onFinished
+                                )
                             } label: {
-                                Text(item.name!)
+                                Text(element.name!)
                             }
                         }
                     }
@@ -43,10 +61,10 @@ struct StepCreation: View {
             }
             .navigationTitle("New step")
             .navigationBarTitleDisplayMode(.inline)
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Cancel", action: onFinished)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Cancel", action: onFinished)
+                }
             }
         }
     }

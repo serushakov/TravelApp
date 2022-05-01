@@ -11,18 +11,25 @@ struct StepForm: View {
     @Environment(\.presentationMode) private var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
 
+    let day: Date
     let poi: PointOfInterest
+    let prevStep: StepDescriptor
     let trip: Trip
     let onFinished: () -> Void
 
-    @State var arrival = Date.now
-    @State var departure = Date.now
+    @State var arrival: Date
+    @State var departure: Date
 
-    func getLimit(for date: Date) -> Date {
-        let startOfDay: Date = Calendar.current.startOfDay(for: date)
-        let components = DateComponents(hour: 23, minute: 59, second: 59)
+    init(day: Date, poi: PointOfInterest, prevStep: StepDescriptor, trip: Trip, onFinished: @escaping () -> Void) {
+        self.day = day
+        self.poi = poi
+        self.prevStep = prevStep
+        self.trip = trip
+        self.onFinished = onFinished
 
-        return Calendar.current.date(byAdding: components, to: startOfDay) ?? date
+        let arrival = prevStep.departure!.advanced(by: 30 * 60)
+        _arrival = State(wrappedValue: arrival)
+        _departure = State(wrappedValue: arrival.advanced(by: 60 * 60))
     }
 
     func createStep() {
@@ -46,13 +53,41 @@ struct StepForm: View {
     var body: some View {
         VStack {
             Form {
-                Button { presentationMode.wrappedValue.dismiss() } label: {
-                    Text(poi.name!)
-                }
+                Section {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Text(prevStep.title)
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            .background(.background)
+                            .cornerRadius(8)
 
-                DatePicker("Arrival time", selection: $arrival, displayedComponents: .hourAndMinute)
-                DatePicker("Leaving at", selection: $departure, in: arrival ... getLimit(for: arrival), displayedComponents: .hourAndMinute)
+                        StepDivider(walkEstimate: .loaded(25 * 60), busEstimate: .loaded(10 * 60)) // TODO: Add actual values
+
+                        Button { presentationMode.wrappedValue.dismiss() } label: {
+                            HStack {
+                                Text(poi.name!)
+                                Spacer()
+                                Image(systemName: "chevron.forward")
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 10)
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                        .tint(Color.white)
+                        .buttonStyle(.borderedProminent)
+                        .cornerRadius(8)
+                    }
+
+                    .listRowInsets(EdgeInsets())
+                }
+                .listRowBackground(Color.clear)
+
+                DatePicker("Arrival time", selection: $arrival, in: prevStep.departure! ... arrival.getDayEnd(), displayedComponents: .hourAndMinute)
+                DatePicker("Leaving at", selection: $departure, in: arrival ... arrival.getDayEnd(), displayedComponents: .hourAndMinute)
             }
+            .background(.background)
         }
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
@@ -70,3 +105,12 @@ struct StepForm: View {
 //        StepForm()
 //    }
 // }
+
+extension Color {
+    init(hex: Int, opacity: Double = 1.0) {
+        let red = Double((hex & 0xff0000) >> 16) / 255.0
+        let green = Double((hex & 0xff00) >> 8) / 255.0
+        let blue = Double((hex & 0xff) >> 0) / 255.0
+        self.init(.sRGB, red: red, green: green, blue: blue, opacity: opacity)
+    }
+}

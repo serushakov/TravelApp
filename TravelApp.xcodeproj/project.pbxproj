@@ -45,6 +45,7 @@
 		6463A571281D34B500E34B33 /* AddStepButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A570281D34B500E34B33 /* AddStepButton.swift */; };
 		6463A573281D350600E34B33 /* StepCreation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A572281D350600E34B33 /* StepCreation.swift */; };
 		6463A575281D392900E34B33 /* StepForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A574281D392900E34B33 /* StepForm.swift */; };
+		6463A578281D408800E34B33 /* StepDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A577281D408800E34B33 /* StepDescriptor.swift */; };
 		64725DE0280EF262002D8967 /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DDF280EF262002D8967 /* InfoSection.swift */; };
 		64725DE4280F2319002D8967 /* PoiSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DE3280F2319002D8967 /* PoiSearch.swift */; };
 		647EA9612813E93A000E7E5D /* InfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647EA9602813E93A000E7E5D /* InfoItem.swift */; };
@@ -98,6 +99,7 @@
 		6463A570281D34B500E34B33 /* AddStepButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStepButton.swift; sourceTree = "<group>"; };
 		6463A572281D350600E34B33 /* StepCreation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCreation.swift; sourceTree = "<group>"; };
 		6463A574281D392900E34B33 /* StepForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepForm.swift; sourceTree = "<group>"; };
+		6463A577281D408800E34B33 /* StepDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDescriptor.swift; sourceTree = "<group>"; };
 		64725DDF280EF262002D8967 /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
 		64725DE3280F2319002D8967 /* PoiSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiSearch.swift; sourceTree = "<group>"; };
 		647EA9602813E93A000E7E5D /* InfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItem.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 				6463A570281D34B500E34B33 /* AddStepButton.swift */,
 				6463A572281D350600E34B33 /* StepCreation.swift */,
 				6463A574281D392900E34B33 /* StepForm.swift */,
+				6463A577281D408800E34B33 /* StepDescriptor.swift */,
 			);
 			path = TripDayItinerary;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				6459E32527EF557E00FF69C3 /* Persistence.swift in Sources */,
 				648B97D3280BFF3A00B3BFFC /* EditableItem.swift in Sources */,
 				64506D79280C62D9004AD576 /* ListSectionHeader.swift in Sources */,
+				6463A578281D408800E34B33 /* StepDescriptor.swift in Sources */,
 				64725DE0280EF262002D8967 /* InfoSection.swift in Sources */,
 				6463A56F281D2D0E00E34B33 /* StepView.swift in Sources */,
 				645AEA3D280AA98200B6542E /* PoiListSection.swift in Sources */,
