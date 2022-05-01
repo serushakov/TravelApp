@@ -24,12 +24,15 @@ enum StepType {
  user created step (Step). For the purposes of simplified data exchange this struct
  will be the common data format that can represent all types of steps
  */
-struct StepDescriptor {
+struct StepDescriptor: Identifiable {
+    var id = UUID()
+
     let type: StepType
     let title: String
     let location: CLLocationCoordinate2D
     let arrival: Date?
     let departure: Date?
+    let ordinal: Int?
 
     init(type: StepType, title: String, location: CLLocationCoordinate2D, arrival: Date, departure: Date) {
         self.type = type
@@ -37,6 +40,7 @@ struct StepDescriptor {
         self.location = location
         self.arrival = arrival
         self.departure = departure
+        ordinal = nil
     }
 
     init(type: StepType, title: String, location: CLLocationCoordinate2D, arrival: Date) {
@@ -45,6 +49,7 @@ struct StepDescriptor {
         self.location = location
         self.arrival = arrival
         departure = nil
+        ordinal = nil
     }
 
     init(type: StepType, title: String, location: CLLocationCoordinate2D, departure: Date) {
@@ -53,9 +58,10 @@ struct StepDescriptor {
         self.location = location
         arrival = nil
         self.departure = departure
+        ordinal = nil
     }
 
-    init?(fromStep step: Step) {
+    init?(fromStep step: Step, ordinal: Int) {
         guard let poi = step.poi else {
             return nil
         }
@@ -64,5 +70,6 @@ struct StepDescriptor {
         location = CLLocationCoordinate2D(latitude: poi.latitude, longitude: poi.longitude)
         arrival = step.visitStart
         departure = step.visitEnd
+        self.ordinal = ordinal
     }
 }

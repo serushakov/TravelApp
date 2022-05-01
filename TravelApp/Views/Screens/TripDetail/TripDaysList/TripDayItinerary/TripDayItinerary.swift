@@ -45,17 +45,6 @@ struct TripDayItinerary: View {
         )
     }
 
-    var mapRect: MKMapRect {
-        let coordinates = hubs.map { hub in
-            CLLocationCoordinate2D(latitude: hub.latitude, longitude: hub.longitude)
-        }
-
-        let rects = coordinates.lazy.map { MKMapRect(origin: MKMapPoint($0), size: MKMapSize()) }
-        let rect = rects.reduce(MKMapRect.null) { $0.union($1) }
-
-        return rect
-    }
-
     var startStep: StepDescriptor? {
         guard let arrival = trip.arrival, let departure = trip.departure else {
             return nil
@@ -94,6 +83,20 @@ struct TripDayItinerary: View {
         return nil
     }
 
+    var allSteps: [StepDescriptor] {
+        guard let startStep = startStep else {
+            return []
+        }
+
+        var steps = [startStep]
+
+        steps.append(contentsOf: self.steps.enumerated().compactMap {
+            StepDescriptor(fromStep: $1, ordinal: $0 + 1)
+        })
+
+        return steps
+    }
+
     var startStepView: some View {
         guard let step = startStep else { return AnyView(EmptyView()) }
 
@@ -115,8 +118,7 @@ struct TripDayItinerary: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                Map(mapRect: Binding.constant(mapRect))
-                    .edgesIgnoringSafeArea(.top)
+                ItineraryMap(steps: allSteps)
                     .cornerRadius(8)
                     .frame(height: 300)
 
@@ -161,7 +163,7 @@ struct TripDayItinerary: View {
         }
         .sheet(isPresented: $showStepCreation) {
             if let startStep = startStep {
-                let lastStep = steps.last != nil ? StepDescriptor(fromStep: steps.last!) : nil
+                let lastStep = steps.last != nil ? StepDescriptor(fromStep: steps.last!, ordinal: steps.count - 1) : nil
 
                 StepCreation(day: day, trip: trip, prevStep: lastStep ?? startStep) {
                     showStepCreation = false
