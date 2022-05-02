@@ -25,6 +25,7 @@ struct StepDivider: View {
 
         formatter = DateComponentsFormatter()
         formatter.unitsStyle = .brief // Shows short time unit
+        formatter.allowedUnits = [.hour, .minute]
     }
 
     var walkEstimateView: some View {

@@ -9,6 +9,41 @@ import Foundation
 import MapKit
 import SwiftUI
 
+struct Route {
+    let from: CLLocationCoordinate2D
+    let to: CLLocationCoordinate2D
+}
+
+struct TravelEstimate {
+    let onFoot: TimeInterval
+    let publicTransport: TimeInterval
+}
+
+struct StepWithDivider: View {
+    let step: StepDescriptor
+    let prevStep: StepDescriptor
+
+    let onStepPress: () -> Void
+
+    @ObservedObject var estimateProvider: TravelEstimateProvider
+
+    init(step: StepDescriptor, prevStep: StepDescriptor, onStepPress: @escaping () -> Void) {
+        self.step = step
+        self.prevStep = prevStep
+        self.onStepPress = onStepPress
+        estimateProvider = TravelEstimateProvider(from: prevStep.location, to: step.location)
+    }
+
+    var body: some View {
+        Group {
+            StepDivider(walkEstimate: estimateProvider.walkEstimate, busEstimate: estimateProvider.busEstimate)
+            Button(action: onStepPress) {
+                StepView(name: step.title, ordinal: step.ordinal!, startTime: step.arrival!, endTime: step.departure!)
+            }
+        }
+    }
+}
+
 struct TripDayItinerary: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     var trip: Trip
@@ -49,6 +84,8 @@ struct TripDayItinerary: View {
         guard let arrival = trip.arrival else {
             return nil
         }
+
+        print("daydaydaydaydaydya", arrival, day)
 
         let isArrivalDay = arrival.isSameDay(as: day)
 
@@ -149,13 +186,11 @@ struct TripDayItinerary: View {
                 VStack(alignment: .leading, spacing: 0) {
                     startStepView
                     ForEach(Array(steps.enumerated()), id: \.element) { index, step in
-                        Group {
-                            StepDivider(walkEstimate: .loaded(25 * 60), busEstimate: .loaded(10 * 60))
-                            Button {
-                                editedStep = step
-                            } label: {
-                                StepView(name: step.poi!.name!, ordinal: index + 1, startTime: step.visitStart!, endTime: step.visitEnd!)
-                            }
+                        StepWithDivider(
+                            step: StepDescriptor(fromStep: step, ordinal: index + 1)!,
+                            prevStep: allSteps[index]
+                        ) {
+                            editedStep = step
                         }
                     }
                     StepDivider(walkEstimate: .none, busEstimate: .none)
@@ -190,47 +225,5 @@ struct TripDayItinerary: View {
                 EmptyView()
             }
         }
-    }
-}
-
-// struct TripDayItinerary_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TripDayItinerary()
-//    }
-// }
-
-struct Line: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: 0, y: 0))
-        path.addLine(to: CGPoint(x: 0, y: rect.height))
-        return path
-    }
-}
-
-extension Date {
-    func isSameDay(as date: Date) -> Bool {
-        let diff = Calendar.current.dateComponents([.day], from: self, to: date)
-
-        return diff.day == 0
-    }
-
-    static func getDayStart(for date: Date) -> Date {
-        return Calendar.current.startOfDay(for: date)
-    }
-
-    func getDayStart() -> Date {
-        return Date.getDayStart(for: self)
-    }
-
-    static func getDayEnd(for date: Date) -> Date {
-        let startOfDay: Date = date.getDayStart()
-        let components = DateComponents(hour: 23, minute: 59, second: 59)
-
-        return Calendar.current.date(byAdding: components, to: startOfDay) ?? date
-    }
-
-    func getDayEnd() -> Date {
-        return Date.getDayEnd(for: self)
     }
 }

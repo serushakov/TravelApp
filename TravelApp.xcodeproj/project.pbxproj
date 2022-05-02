@@ -47,6 +47,9 @@
 		6463A57A281E6FDE00E34B33 /* ItineraryMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A579281E6FDE00E34B33 /* ItineraryMap.swift */; };
 		6463A58C281FA08C00E34B33 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A58B281FA08C00E34B33 /* SearchBar.swift */; };
 		6463A58E281FA14800E34B33 /* ElevatedBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A58D281FA14800E34B33 /* ElevatedBackground.swift */; };
+		6463A591281FB46400E34B33 /* TravelEstimateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A590281FB46400E34B33 /* TravelEstimateProvider.swift */; };
+		6463A593281FB80700E34B33 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A592281FB80700E34B33 /* Line.swift */; };
+		6463A595281FB82700E34B33 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A594281FB82700E34B33 /* Date.swift */; };
 		64725DE0280EF262002D8967 /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DDF280EF262002D8967 /* InfoSection.swift */; };
 		64725DE4280F2319002D8967 /* PoiSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DE3280F2319002D8967 /* PoiSearch.swift */; };
 		647EA9612813E93A000E7E5D /* InfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647EA9602813E93A000E7E5D /* InfoItem.swift */; };
@@ -102,6 +105,9 @@
 		6463A579281E6FDE00E34B33 /* ItineraryMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryMap.swift; sourceTree = "<group>"; };
 		6463A58B281FA08C00E34B33 /* SearchBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		6463A58D281FA14800E34B33 /* ElevatedBackground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ElevatedBackground.swift; sourceTree = "<group>"; };
+		6463A590281FB46400E34B33 /* TravelEstimateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelEstimateProvider.swift; sourceTree = "<group>"; };
+		6463A592281FB80700E34B33 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		6463A594281FB82700E34B33 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		64725DDF280EF262002D8967 /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
 		64725DE3280F2319002D8967 /* PoiSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiSearch.swift; sourceTree = "<group>"; };
 		647EA9602813E93A000E7E5D /* InfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItem.swift; sourceTree = "<group>"; };
@@ -141,7 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				6432732328152A5D00B426F9 /* TripCreation */,
-				645DFA3727FDE5ED0013A3B1 /* LocationSearchService.swift */,
 				6459E33527F2281900FF69C3 /* TripItem.swift */,
 				64C3214F2801794900AE7357 /* TripList.swift */,
 			);
@@ -204,16 +209,8 @@
 			children = (
 				6459E33427F2272C00FF69C3 /* Screens */,
 				6459E33327F2272800FF69C3 /* Shared */,
-				6459E33127F2271600FF69C3 /* Navigation */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		6459E33127F2271600FF69C3 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Navigation;
 			sourceTree = "<group>";
 		};
 		6459E33327F2272800FF69C3 /* Shared */ = {
@@ -225,11 +222,14 @@
 				6463A58D281FA14800E34B33 /* ElevatedBackground.swift */,
 				6424B9752803592C00779615 /* IconCircleButton.swift */,
 				645AB1372807E3E200E89B68 /* SheetHeader.swift */,
+				645DFA3727FDE5ED0013A3B1 /* LocationSearchService.swift */,
 				645AB13B2807F79A00E89B68 /* BlurHashView.swift */,
 				645AB1422807FF2D00E89B68 /* BlurHashImage.swift */,
 				6409D3BE280AC8CF00188FFA /* AddItem.swift */,
 				648B97D2280BFF3A00B3BFFC /* EditableItem.swift */,
 				6463A561281A798E00E34B33 /* View.swift */,
+				6463A592281FB80700E34B33 /* Line.swift */,
+				6463A594281FB82700E34B33 /* Date.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -306,6 +306,7 @@
 				6463A574281D392900E34B33 /* StepForm.swift */,
 				6463A577281D408800E34B33 /* StepDescriptor.swift */,
 				6463A579281E6FDE00E34B33 /* ItineraryMap.swift */,
+				6463A590281FB46400E34B33 /* TravelEstimateProvider.swift */,
 			);
 			path = TripDayItinerary;
 			sourceTree = "<group>";
@@ -389,6 +390,7 @@
 				6407546C280817EA0061F867 /* TripSummary.swift in Sources */,
 				645DFA3827FDE5ED0013A3B1 /* LocationSearchService.swift in Sources */,
 				6432732728152B7B00B426F9 /* TravelPlacePicker.swift in Sources */,
+				6463A591281FB46400E34B33 /* TravelEstimateProvider.swift in Sources */,
 				6463A560281A76C100E34B33 /* TripEditForm.swift in Sources */,
 				6463A568281D26AD00E34B33 /* StepDivider.swift in Sources */,
 				64506D77280C62BF004AD576 /* HubsSection.swift in Sources */,
@@ -421,6 +423,7 @@
 				6463A571281D34B500E34B33 /* AddStepButton.swift in Sources */,
 				64CA9912280AB66A0047234D /* PoI.swift in Sources */,
 				6409D3BD280ABFAD00188FFA /* CreateListSection.swift in Sources */,
+				6463A595281FB82700E34B33 /* Date.swift in Sources */,
 				64C8B0E42811406F00A0397B /* PoiDetails.swift in Sources */,
 				645AB1382807E3E200E89B68 /* SheetHeader.swift in Sources */,
 				647EA9612813E93A000E7E5D /* InfoItem.swift in Sources */,
@@ -429,6 +432,7 @@
 				6463A56C281D29CB00E34B33 /* HubStep.swift in Sources */,
 				6463A562281A798E00E34B33 /* View.swift in Sources */,
 				645AB14A28080EEA00E89B68 /* TripDetail.swift in Sources */,
+				6463A593281FB80700E34B33 /* Line.swift in Sources */,
 				645AB13F2807F86300E89B68 /* BlurHashDecode.swift in Sources */,
 				6459E31C27EF557B00FF69C3 /* TravelAppApp.swift in Sources */,
 			);
@@ -566,9 +570,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravelApp/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs your location to calculate travel estimates to your saved locations.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -580,7 +584,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -597,9 +601,9 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TravelApp/Info.plist;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "App needs your location to calculate travel estimates to your saved locations.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -611,7 +615,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

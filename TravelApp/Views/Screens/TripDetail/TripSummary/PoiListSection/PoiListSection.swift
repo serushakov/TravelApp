@@ -56,7 +56,6 @@ struct PoiListSection: View {
             try managedObjectContext.save()
         } catch {
             print(error)
-            // TODO: Handle error
         }
         showPoiAddition = false
     }
@@ -68,7 +67,6 @@ struct PoiListSection: View {
             try managedObjectContext.save()
         } catch {
             print(error)
-            // TODO: Handle error
         }
     }
 
@@ -98,7 +96,7 @@ struct PoiListSection: View {
                                         address: item.address!,
                                         image: item.thumbnail,
                                         blurHash: item.blurhash
-                                    ).frame(width: UIScreen.main.bounds.width / 2.5)
+                                    ).frame(width: UIScreen.main.bounds.width / 2.3)
                                 }
                                 .transition(.scale)
                                 .environment(\.editMode, editMode)
@@ -110,7 +108,7 @@ struct PoiListSection: View {
                                 onAddItemClick()
                             } label: {
                                 AddItem(label: "Add new point of interest")
-                                    .frame(width: UIScreen.main.bounds.width / 2.5)
+                                    .frame(width: UIScreen.main.bounds.width / 2.3)
                             }
                         }
                     }

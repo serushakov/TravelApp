@@ -8,43 +8,9 @@
 import MapKit
 import SwiftUI
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    let manager = CLLocationManager()
-
-    @Published var location: CLLocationCoordinate2D?
-    @Published var authorizationStatus: CLAuthorizationStatus
-
-    override init() {
-        self.authorizationStatus = manager.authorizationStatus
-        super.init()
-        manager.delegate = self
-    }
-
-    func requestLocation() {
-        manager.requestLocation()
-    }
-
-    func requestPermissions() {
-        manager.requestWhenInUseAuthorization()
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        location = locations.first?.coordinate
-    }
-
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        authorizationStatus = manager.authorizationStatus
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error:: \(error.localizedDescription)")
-    }
-}
-
 struct PoiDetails: View {
     let poi: PointOfInterest
     let onClose: () -> Void
-    @ObservedObject var locationManager = LocationManager()
 
     @State var estimate: Double? = nil
 
@@ -53,27 +19,6 @@ struct PoiDetails: View {
             latitude: poi.latitude,
             longitude: poi.longitude
         )
-    }
-
-    func getTravelEstimate(from startLocation: CLLocationCoordinate2D) {
-        let endLocation = location
-
-        let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: startLocation.latitude, longitude: startLocation.longitude), addressDictionary: nil))
-        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: endLocation.latitude, longitude: endLocation.longitude), addressDictionary: nil))
-        request.requestsAlternateRoutes = false // if you want multiple possible routes
-        request.transportType = .automobile // will be good for cars
-
-        let result = MKDirections(request: request)
-
-        result.calculateETA { response, _ in
-            guard let response = response else {
-                // TODO: Handle error
-                return
-            }
-
-            estimate = response.expectedTravelTime
-        }
     }
 
     var body: some View {
@@ -98,24 +43,6 @@ struct PoiDetails: View {
                     Text("Directions")
                         .foregroundColor(.secondary)
 
-                    Text("")
-                        .onAppear {
-                            if locationManager.authorizationStatus == .authorizedWhenInUse {
-                                locationManager.requestLocation()
-                            }
-                        }
-                        .onChange(of: locationManager.authorizationStatus) { status in
-                            if status == .authorizedWhenInUse {
-                                locationManager.requestLocation()
-                            }
-                        }
-                        .onChange(of: locationManager.location) { value in
-
-                            if let location = value {
-                                getTravelEstimate(from: location)
-                            }
-                        }
-
                     Button {} label: {
                         Label("Open in Maps", systemImage: "map")
                     }
@@ -130,7 +57,7 @@ struct PoiDetails: View {
                 .padding()
                 Spacer()
             }
-            .frame(minWidth: 0, maxWidth: .infinity)
+            .stretch()
             Button {
                 onClose()
             } label: {

@@ -5,6 +5,7 @@
 //  Created by Sergey Ushakov on 30.4.2022.
 //
 
+import MapKit
 import SwiftUI
 
 struct StepForm: View {
@@ -20,6 +21,8 @@ struct StepForm: View {
     @State var arrival: Date
     @State var departure: Date
 
+    @ObservedObject var estimateProvider: TravelEstimateProvider
+
     init(day: Date, poi: PointOfInterest, prevStep: StepDescriptor, trip: Trip, onFinished: @escaping () -> Void) {
         self.day = day
         self.poi = poi
@@ -27,9 +30,12 @@ struct StepForm: View {
         self.trip = trip
         self.onFinished = onFinished
 
-        let arrival = prevStep.departure!.advanced(by: 30 * 60)
+        let dayStart = day.getDayStart().advanced(by: 9 * 60 * 60)
+        let arrival = prevStep.departure == nil ? dayStart : prevStep.departure!.advanced(by: 30 * 60)
         _arrival = State(wrappedValue: arrival)
         _departure = State(wrappedValue: arrival.advanced(by: 60 * 60))
+
+        estimateProvider = TravelEstimateProvider(from: prevStep.location, to: CLLocationCoordinate2D(latitude: poi.latitude, longitude: poi.longitude))
     }
 
     func createStep() {
@@ -62,7 +68,7 @@ struct StepForm: View {
                             .background(.background)
                             .cornerRadius(8)
 
-                        StepDivider(walkEstimate: .loaded(25 * 60), busEstimate: .loaded(10 * 60)) // TODO: Add actual values
+                        StepDivider(walkEstimate: estimateProvider.walkEstimate, busEstimate: estimateProvider.busEstimate)
 
                         HStack {
                             Text(poi.name!)
@@ -85,7 +91,7 @@ struct StepForm: View {
                 }
                 .listRowBackground(Color.clear)
 
-                DatePicker("Arrival time", selection: $arrival, in: prevStep.departure! ... arrival.getDayEnd(), displayedComponents: .hourAndMinute)
+                DatePicker("Arrival time", selection: $arrival, in: (prevStep.departure ?? day.getDayStart()) ... arrival.getDayEnd(), displayedComponents: .hourAndMinute)
                 DatePicker("Leaving at", selection: $departure, in: arrival ... arrival.getDayEnd(), displayedComponents: .hourAndMinute)
             }
             .background(.background)

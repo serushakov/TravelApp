@@ -5,7 +5,6 @@
 //  Created by Sergey Ushakov on 10.4.2022.
 //
 
-import BottomSheet
 import MapKit
 import SwiftUI
 
@@ -18,7 +17,7 @@ struct TripCreation: View {
     var completions: [MKMapItem] {
         locationSearchService.completions
             .filter(isCity)
-            .compactMap { $0.placemark.title == nil ? nil : $0 }
+            .compactMap { $0.placemark.title == nil ? nil : $0 } // Filter out items that don't have a title
     }
 
     func isCity(_ item: MKMapItem) -> Bool {
