@@ -131,9 +131,6 @@ struct HubSearch: View {
     var completions: [MKMapItem] {
         let a = locationSearchService.completions
             .compactMap { $0.placemark.title == nil ? nil : $0 }
-
-        print(a.map { $0.pointOfInterestCategory })
-
         return a
     }
 

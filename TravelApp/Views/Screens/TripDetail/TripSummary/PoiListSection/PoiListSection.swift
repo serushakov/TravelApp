@@ -35,7 +35,6 @@ struct PoiListSection: View {
 
     private func deleteSection() {
         managedObjectContext.delete(list)
-        print("Delete")
 
         do {
             try managedObjectContext.save()

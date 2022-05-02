@@ -85,8 +85,6 @@ struct TripDayItinerary: View {
             return nil
         }
 
-        print("daydaydaydaydaydya", arrival, day)
-
         let isArrivalDay = arrival.isSameDay(as: day)
 
         if isArrivalDay, let arrivalPlace = trip.destination?.arrival, let arrivalDate = trip.arrival {
@@ -179,9 +177,6 @@ struct TripDayItinerary: View {
 
                 Text(day, format: Date.FormatStyle().day().month(.wide))
                     .font(.title.bold())
-                    .onAppear {
-                        print(steps)
-                    }
 
                 VStack(alignment: .leading, spacing: 0) {
                     startStepView

@@ -33,8 +33,7 @@ enum ThumbnailSearchService {
 
         components.queryItems = [
             URLQueryItem(name: "query", value: query),
-            URLQueryItem(name: "client_id", value: apiKey),
-//            URLQueryItem(name: "topics", value: "travel")
+            URLQueryItem(name: "client_id", value: apiKey)
         ]
 
         guard let string = components.string else { return nil }

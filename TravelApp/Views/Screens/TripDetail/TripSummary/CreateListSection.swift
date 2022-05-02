@@ -40,7 +40,6 @@ struct CreateListSection: View {
                     isNameFieldFocused = false
                     name = ""
                 }
-                .onChange(of: isNameFieldFocused) { print($0) }
         }
     }
 }

@@ -36,41 +36,6 @@ struct TripSummary: View {
         )
     }
 
-    private func getScrollOffset(_ geometry: GeometryProxy) -> CGFloat {
-        geometry.frame(in: .named("scroll")).minY
-    }
-
-    private func getTitleOpacity(_ geometry: GeometryProxy) -> CGFloat {
-        let offset = getScrollOffset(geometry)
-
-        print(offset)
-
-        return 1
-    }
-
-    // 2
-    private func getOffsetForHeaderImage(_ geometry: GeometryProxy) -> CGFloat {
-        let offset = getScrollOffset(geometry)
-
-        // Image was pulled down
-        if offset > 0 {
-            return -offset
-        } else {
-            return -offset * 0.2
-        }
-    }
-
-    private func getHeightForHeaderImage(_ geometry: GeometryProxy) -> CGFloat {
-        let offset = getScrollOffset(geometry)
-        let imageHeight = geometry.size.height
-
-        if offset > 0 {
-            return imageHeight + offset
-        }
-
-        return imageHeight
-    }
-
     func createList(named: String) {
         let list = List(context: moc)
         list.name = named

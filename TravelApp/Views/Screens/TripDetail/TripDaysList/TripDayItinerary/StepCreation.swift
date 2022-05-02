@@ -21,8 +21,6 @@ struct StepCreation: View {
         self.prevStep = prevStep
         self.onFinished = onFinished
 
-        print(prevStep)
-
         _lists = FetchRequest(
             entity: List.entity(),
             sortDescriptors: [
