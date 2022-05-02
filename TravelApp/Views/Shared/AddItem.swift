@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/**
+ Universal AddItem button that can be used in lists and grids
+ */
 struct AddItem: View {
     let label: String
     var body: some View {

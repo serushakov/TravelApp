@@ -8,6 +8,9 @@
 import SwiftUI
 import UIKit
 
+/**
+ SwiftUI View that renders BlurHash
+ */
 struct BlurHashView: UIViewRepresentable {
     typealias UIViewType = UIImageView
 
@@ -21,7 +24,11 @@ struct BlurHashView: UIViewRepresentable {
         return uiImageView
     }
 
-    func updateUIView(_ uiView: UIImageView, context: Context) {}
+    func updateUIView(_ uiView: UIImageView, context: Context) {
+        guard let uiImage = UIImage(blurHash: blurHash, size: size) else { return }
+
+        uiView.image = uiImage
+    }
 }
 
 struct BlurHashView_Previews: PreviewProvider {

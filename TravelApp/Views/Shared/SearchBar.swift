@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/**
+ Adapter view for UIKit UISearchBar
+ */
 struct SearchBar: UIViewRepresentable {
     @Binding var text: String
     private var placeholder = ""

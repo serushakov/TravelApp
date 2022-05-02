@@ -46,12 +46,11 @@ struct TripDayItinerary: View {
     }
 
     var startStep: StepDescriptor? {
-        guard let arrival = trip.arrival, let departure = trip.departure else {
+        guard let arrival = trip.arrival else {
             return nil
         }
 
         let isArrivalDay = arrival.isSameDay(as: day)
-        let isDepartureDay = departure.isSameDay(as: day)
 
         if isArrivalDay, let arrivalPlace = trip.destination?.arrival, let arrivalDate = trip.arrival {
             return StepDescriptor(
@@ -62,21 +61,30 @@ struct TripDayItinerary: View {
             )
         }
 
+        if let hub = hubs.first {
+            return StepDescriptor(
+                type: .hub,
+                title: hub.name!,
+                location: CLLocationCoordinate2D(latitude: hub.latitude, longitude: hub.longitude)
+            )
+        }
+
+        return nil
+    }
+
+    var finishStep: StepDescriptor? {
+        guard let departure = trip.departure else {
+            return nil
+        }
+
+        let isDepartureDay = departure.isSameDay(as: day)
+
         if isDepartureDay, let departurePlace = trip.destination?.departure, let departureDate = trip.departure {
             return StepDescriptor(
                 type: .departure,
                 title: departurePlace.name!,
                 location: CLLocationCoordinate2D(latitude: departurePlace.latitude, longitude: departurePlace.longitude),
                 departure: departureDate
-            )
-        }
-
-        if let hub = hubs.first {
-            return StepDescriptor(
-                type: .hub,
-                title: hub.name!,
-                location: CLLocationCoordinate2D(latitude: hub.latitude, longitude: hub.longitude),
-                departure: Date.now // TODO: Use StartStep here
             )
         }
 
@@ -94,6 +102,10 @@ struct TripDayItinerary: View {
             StepDescriptor(fromStep: $1, ordinal: $0 + 1)
         })
 
+        if let finishStep = finishStep {
+            steps.append(finishStep)
+        }
+
         return steps
     }
 
@@ -106,13 +118,19 @@ struct TripDayItinerary: View {
                 TravelStep(type: .arrival, name: step.title, time: step.departure!)
             )
         case .hub:
-            return AnyView(HubStep(
-                name: step.title,
-                time: step.departure!
-            ))
+            return AnyView(HubStep(name: step.title))
         default:
             return AnyView(EmptyView())
         }
+    }
+
+    var finishStepView: some View {
+        guard let step = finishStep else { return AnyView(EmptyView()) }
+
+        return AnyView(Group {
+            StepDivider(walkEstimate: .none, busEstimate: .none)
+            TravelStep(type: .departure, name: step.title, time: step.departure!)
+        })
     }
 
     var body: some View {
@@ -130,7 +148,6 @@ struct TripDayItinerary: View {
 
                 VStack(alignment: .leading, spacing: 0) {
                     startStepView
-
                     ForEach(Array(steps.enumerated()), id: \.element) { index, step in
                         Group {
                             StepDivider(walkEstimate: .loaded(25 * 60), busEstimate: .loaded(10 * 60))
@@ -147,6 +164,7 @@ struct TripDayItinerary: View {
                     } label: {
                         AddStepButton()
                     }
+                    finishStepView
                 }
             }
         }

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct HubStep: View {
     let name: String
-    let time: Date
 
     var body: some View {
         HStack {
@@ -20,22 +19,16 @@ struct HubStep: View {
             VStack(alignment: .leading) {
                 Text(name)
                     .foregroundColor(.blue)
-                Text(time, format: Date.FormatStyle().hour().minute())
-                    .foregroundColor(.secondary)
-                    .font(.caption)
             }
-            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+            .stretch(alignment: .leading)
         }
     }
 }
 
 struct HubStep_Previews: PreviewProvider {
     static var previews: some View {
-        HubStep(
-            name: "Hotel Whatever",
-            time: Date.now
-        )
-        .frame(width: 200)
-        .previewLayout(.sizeThatFits)
+        HubStep(name: "Hotel Whatever")
+            .frame(width: 200)
+            .previewLayout(.sizeThatFits)
     }
 }

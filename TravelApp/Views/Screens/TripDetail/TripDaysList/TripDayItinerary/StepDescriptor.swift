@@ -34,6 +34,15 @@ struct StepDescriptor: Identifiable {
     let departure: Date?
     let ordinal: Int?
 
+    init(type: StepType, title: String, location: CLLocationCoordinate2D) {
+        self.type = type
+        self.title = title
+        self.location = location
+        arrival = nil
+        departure = nil
+        ordinal = nil
+    }
+
     init(type: StepType, title: String, location: CLLocationCoordinate2D, arrival: Date, departure: Date) {
         self.type = type
         self.title = title

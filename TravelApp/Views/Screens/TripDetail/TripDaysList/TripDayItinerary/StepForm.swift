@@ -58,26 +58,27 @@ struct StepForm: View {
                         Text(prevStep.title)
                             .padding(.horizontal)
                             .padding(.vertical, 10)
-                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            .stretch(alignment: .leading)
                             .background(.background)
                             .cornerRadius(8)
 
                         StepDivider(walkEstimate: .loaded(25 * 60), busEstimate: .loaded(10 * 60)) // TODO: Add actual values
 
-                        Button { presentationMode.wrappedValue.dismiss() } label: {
-                            HStack {
-                                Text(poi.name!)
-                                Spacer()
-                                Image(systemName: "chevron.forward")
-                                    .foregroundColor(.secondary)
-                            }
+                        HStack {
+                            Text(poi.name!)
+                            Spacer()
+                            Image(systemName: "chevron.forward")
+                                .foregroundColor(.secondary)
                         }
                         .padding(.horizontal)
                         .padding(.vertical, 10)
-                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
-                        .tint(Color.white)
+                        .stretch(alignment: .leading)
+                        .background(.white)
                         .buttonStyle(.borderedProminent)
                         .cornerRadius(8)
+                        .onTapGesture {
+                            presentationMode.wrappedValue.dismiss()
+                        }
                     }
 
                     .listRowInsets(EdgeInsets())

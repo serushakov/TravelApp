@@ -24,7 +24,7 @@ struct TripDaysList: View {
     var days: [Date] {
         guard let arrival = trip.arrival, let departure = trip.departure else { return [] }
 
-        return stride(from: arrival, to: departure, by: dayDurationInSeconds)
+        return stride(from: arrival.getDayStart(), to: departure.getDayEnd(), by: dayDurationInSeconds)
             .map { $0 }
     }
 

@@ -12,6 +12,11 @@ enum ActionType {
     case delete
 }
 
+/**
+ Utility view that wraps any other view.
+ Listens to `editMode` environment and shows a delete/edit button
+ if `editMode` is `.active`.
+ */
 struct EditableItem<Content: View>: View {
     @Environment(\.editMode) private var editMode
 

@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+/**
+ View that will render BlurHash while image is loading
+ */
 struct BlurHashImage: View {
     var url: URL
     var blurHash: String?
