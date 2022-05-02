@@ -73,6 +73,7 @@ struct MapViewAdvance: UIViewRepresentable {
 
     func updateUIView(_ uiView: MKMapView, context: Context) {
         uiView.visibleMapRect = uiView.mapRectThatFits(region, edgePadding: UIEdgeInsets(top: 32, left: 32, bottom: 32, right: 32))
+        uiView.removeAnnotations(uiView.annotations)
 
         uiView.addAnnotations(
             steps.map { step in

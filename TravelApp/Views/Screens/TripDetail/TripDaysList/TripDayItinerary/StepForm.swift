@@ -56,17 +56,30 @@ struct StepForm: View {
         onFinished()
     }
 
+    var formatter: DateFormatter {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter
+    }
+
     var body: some View {
         VStack {
             Form {
                 Section {
                     VStack(alignment: .leading, spacing: 0) {
-                        Text(prevStep.title)
-                            .padding(.horizontal)
-                            .padding(.vertical, 10)
-                            .stretch(alignment: .leading)
-                            .background(.background)
-                            .cornerRadius(8)
+                        VStack(alignment: .leading) {
+                            Text(prevStep.title)
+                            if let departure = prevStep.departure {
+                                Text("Leaving at: \(formatter.string(from: departure))")
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 10)
+                        .stretch(alignment: .leading)
+                        .background(.background)
+                        .cornerRadius(8)
 
                         StepDivider(walkEstimate: estimateProvider.walkEstimate, busEstimate: estimateProvider.busEstimate)
 

@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+/**
+ A nice header for a bottom sheet
+ Includes a close button
+ */
 struct SheetHeader: View {
     var title: String
     var closeButtonAction: () -> Void

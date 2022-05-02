@@ -30,7 +30,6 @@ struct HubsSection: View {
             try moc.save()
         } catch {
             print(error)
-            // TODO: handle error
         }
     }
 
