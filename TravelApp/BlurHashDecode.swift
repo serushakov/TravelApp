@@ -1,5 +1,8 @@
 import UIKit
 
+/**
+ Implementation taken directly from https://github.com/woltapp/blurhash/tree/master/Swift
+ */
 public extension UIImage {
     convenience init?(blurHash: String, size: CGSize, punch: Float = 1) {
         guard blurHash.count >= 6 else { return nil }

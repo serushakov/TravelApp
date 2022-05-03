@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+/**
+ View that will pick best background color for card content, so that it looks best on
+ light and dark modes
+ */
 struct ElevatedBackground: View {
     @Environment(\.colorScheme) private var colorScheme
 

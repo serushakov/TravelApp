@@ -23,7 +23,13 @@ struct RandomPhotoResult: Hashable, Codable {
     let urls: Urls
 }
 
+/**
+ Service that serves as an interface to Unsplash API
+ */
 enum ThumbnailSearchService {
+    /**
+     Returns a random photo for the provided `query` from Unsplash.
+     */
     static func fetchRandomPhoto(query: String) async throws -> RandomPhotoResult? {
         var components = URLComponents()
         components.scheme = "https"

@@ -10,6 +10,13 @@ import Foundation
 import MapKit
 import SwiftUI
 
+/**
+ Service that serves as an interface to MKLocalSearchCompleter and MKLocalSearch.
+ For a given `searchQuery` if will fetch up to 5 completion results via MKLocalSearchCompleter and
+ then fetch MKMapItem for all of those results. As an output it provides a @Published `completions`.
+
+ `state` allows for communicating state of the search to the user
+ */
 class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterDelegate {
     @Published var searchQuery = ""
     @Published var completions: [MKMapItem] = []
@@ -90,6 +97,9 @@ class LocationSearchService: NSObject, ObservableObject, MKLocalSearchCompleterD
         }
     }
 
+    /**
+     Returns a MKMapItem for a given MKLocalSearchCompletion.
+     */
     func fetchMapItemForCompletion(completion: MKLocalSearchCompletion) async throws -> MKMapItem? {
         let searchRequest = MKLocalSearch.Request(completion: completion)
         searchRequest.region = MKCoordinateRegion(.world)
