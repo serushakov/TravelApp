@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct TripSummary: View {
-    @Environment(\.managedObjectContext) var moc
     @Environment(\.editMode) private var editMode
+    @Environment(\.managedObjectContext) var moc
 
     let trip: Trip
 
@@ -88,19 +88,16 @@ struct TripSummary: View {
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
                 .environment(\.editMode, editMode)
-                .environment(\.managedObjectContext, moc)
 
             HubsSection(trip: trip)
                 .listRowSeparator(.hidden)
                 .environment(\.editMode, editMode)
-                .environment(\.managedObjectContext, moc)
 
             ForEach(lists) { list in
                 PoiListSection(list: list)
                     .listRowInsets(EdgeInsets())
                     .listRowSeparator(.hidden)
                     .environment(\.editMode, editMode)
-                    .environment(\.managedObjectContext, moc)
             }
 
             CreateListSection { name in
@@ -111,10 +108,8 @@ struct TripSummary: View {
             .environment(\.editMode, editMode)
             .padding()
         }
-
         .animation(.easeOut, value: lists.count)
         .transition(.asymmetric(insertion: .opacity, removal: .slide))
-
         .listStyle(.plain)
     }
 }

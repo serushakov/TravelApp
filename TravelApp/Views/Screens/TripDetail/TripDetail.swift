@@ -13,7 +13,6 @@ enum Tab {
 }
 
 struct TripDetail: View {
-    @Environment(\.editMode) private var editMode
     let trip: Trip
 
     @State var selectedTab = Tab.summary
@@ -38,7 +37,6 @@ struct TripDetail: View {
                     Text("Summary")
                 }
                 .tag(Tab.summary)
-                .environment(\.editMode, editMode)
 
             TripDaysList(trip: trip)
                 .tabItem {
@@ -48,7 +46,8 @@ struct TripDetail: View {
                 .tag(Tab.days)
         }
         .navigationTitle(getTitle())
-
+        // Toolbar has to be defined here instead of inside tab views
+        // otherwise it leads to bugs in navbar
         .toolbar {
             switch selectedTab {
             case .summary:

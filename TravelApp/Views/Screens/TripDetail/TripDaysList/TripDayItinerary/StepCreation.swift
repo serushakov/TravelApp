@@ -67,9 +67,3 @@ struct StepCreation: View {
         }
     }
 }
-
-// struct StepCreation_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StepCreation {}
-//    }
-// }

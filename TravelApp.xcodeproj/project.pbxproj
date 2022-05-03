@@ -50,6 +50,7 @@
 		6463A591281FB46400E34B33 /* TravelEstimateProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A590281FB46400E34B33 /* TravelEstimateProvider.swift */; };
 		6463A593281FB80700E34B33 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A592281FB80700E34B33 /* Line.swift */; };
 		6463A595281FB82700E34B33 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A594281FB82700E34B33 /* Date.swift */; };
+		6463A597281FC29000E34B33 /* Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6463A596281FC29000E34B33 /* Estimate.swift */; };
 		64725DE0280EF262002D8967 /* InfoSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DDF280EF262002D8967 /* InfoSection.swift */; };
 		64725DE4280F2319002D8967 /* PoiSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64725DE3280F2319002D8967 /* PoiSearch.swift */; };
 		647EA9612813E93A000E7E5D /* InfoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647EA9602813E93A000E7E5D /* InfoItem.swift */; };
@@ -108,6 +109,7 @@
 		6463A590281FB46400E34B33 /* TravelEstimateProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelEstimateProvider.swift; sourceTree = "<group>"; };
 		6463A592281FB80700E34B33 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		6463A594281FB82700E34B33 /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		6463A596281FC29000E34B33 /* Estimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Estimate.swift; sourceTree = "<group>"; };
 		64725DDF280EF262002D8967 /* InfoSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoSection.swift; sourceTree = "<group>"; };
 		64725DE3280F2319002D8967 /* PoiSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoiSearch.swift; sourceTree = "<group>"; };
 		647EA9602813E93A000E7E5D /* InfoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItem.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				6463A561281A798E00E34B33 /* View.swift */,
 				6463A592281FB80700E34B33 /* Line.swift */,
 				6463A594281FB82700E34B33 /* Date.swift */,
+				6463A596281FC29000E34B33 /* Estimate.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				6463A56F281D2D0E00E34B33 /* StepView.swift in Sources */,
 				645AEA3D280AA98200B6542E /* PoiListSection.swift in Sources */,
 				6407547128081EE70061F867 /* TripDaysList.swift in Sources */,
+				6463A597281FC29000E34B33 /* Estimate.swift in Sources */,
 				6463A575281D392900E34B33 /* StepForm.swift in Sources */,
 				645AB1432807FF2D00E89B68 /* BlurHashImage.swift in Sources */,
 				6463A565281A83DE00E34B33 /* TripDayItinerary.swift in Sources */,

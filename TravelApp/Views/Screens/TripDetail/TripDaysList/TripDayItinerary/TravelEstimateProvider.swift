@@ -9,6 +9,10 @@ import Foundation
 import MapKit
 import SwiftUI
 
+/**
+ Utility class that will calculate and publish travel estimates between two coordinates.
+ Publishes 2 estimates: walking and transit
+ */
 class TravelEstimateProvider: ObservableObject {
     let from: CLLocationCoordinate2D
     let to: CLLocationCoordinate2D

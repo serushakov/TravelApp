@@ -7,12 +7,6 @@
 
 import SwiftUI
 
-enum Estimate {
-    case loading
-    case loaded(TimeInterval)
-    case none
-}
-
 struct StepDivider: View {
     var walkEstimate: Estimate
     var busEstimate: Estimate

@@ -41,7 +41,6 @@ enum ThumbnailSearchService {
 
         let (data, _) = try await URLSession.shared.data(from: url)
 
-        // Parse the JSON data
         let result = try JSONDecoder().decode(RandomPhotoResult.self, from: data)
 
         return result

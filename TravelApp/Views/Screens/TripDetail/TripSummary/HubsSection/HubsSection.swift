@@ -2,7 +2,6 @@ import SwiftUI
 
 struct HubsSection: View {
     @Environment(\.managedObjectContext) private var moc
-    @Environment(\.editMode) private var editMode
 
     let trip: Trip
 
@@ -75,7 +74,6 @@ struct HubsSection: View {
                 .padding(.leading)
             }
             .onDelete(perform: handleDelete)
-            .environment(\.editMode, editMode)
         }
         .listRowSeparator(.hidden)
         .listRowInsets(EdgeInsets())

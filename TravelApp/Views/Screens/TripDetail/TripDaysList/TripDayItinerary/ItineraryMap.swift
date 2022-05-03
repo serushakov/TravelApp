@@ -22,12 +22,15 @@ class StepAnnotation: NSObject, MKAnnotation {
     }
 }
 
-struct MapViewAdvance: UIViewRepresentable {
+/**
+ Map that will display pins for all steps in `steps`.
+ */
+struct ItineraryMap: UIViewRepresentable {
+    var steps: [StepDescriptor]
+
     func makeCoordinator() -> Coordinator {
         return Coordinator()
     }
-
-    @Binding var steps: [StepDescriptor]
 
     class Coordinator: NSObject, MKMapViewDelegate {
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -82,74 +85,3 @@ struct MapViewAdvance: UIViewRepresentable {
             })
     }
 }
-
-struct ItineraryMap: View {
-    let steps: [StepDescriptor]
-
-    var mapRect: MKMapRect {
-        let coordinates = steps.map { step in
-            step.location
-        }
-
-        let rects = coordinates.lazy.map { MKMapRect(origin: MKMapPoint($0), size: MKMapSize()) }
-        let rect = rects.reduce(MKMapRect.null) { $0.union($1) }
-
-        return rect
-    }
-
-    var body: some View {
-        MapViewAdvance(steps: .constant(steps))
-//        Map(mapRect: Binding.constant(mapRect), annotationItems: steps) { item in
-//            MapAnnotation(coordinate: item.location) {
-//                switch item.type {
-//                case .step:
-//                    VStack {
-//                        Image(systemName: "\(item.ordinal!).circle")
-//                            .resizable()
-//                            .foregroundColor(.white)
-//                            .frame(width: 24, height: 24)
-//                            .padding(8)
-//                            .background(.red)
-//                            .clipShape(Circle())
-//                    }
-//                case .arrival:
-//                    VStack {
-//                        Image(systemName: "airplane.arrival")
-//                            .resizable()
-//                            .foregroundColor(.white)
-//                            .frame(width: 24, height: 24)
-//                            .padding(8)
-//                            .background(.red)
-//                            .clipShape(Circle())
-//                    }
-//                case .departure:
-//                    VStack {
-//                        Image(systemName: "airplane.departure")
-//                            .resizable()
-//                            .foregroundColor(.white)
-//                            .frame(width: 24, height: 24)
-//                            .padding(8)
-//                            .background(.red)
-//                            .clipShape(Circle())
-//                    }
-//                case .hub:
-//                    VStack {
-//                        Image(systemName: "house.fill")
-//                            .resizable()
-//                            .foregroundColor(.white)
-//                            .frame(width: 24, height: 24)
-//                            .padding(8)
-//                            .background(.red)
-//                            .clipShape(Circle())
-//                    }
-//                }
-//            }
-//        }
-    }
-}
-
-// struct ItineraryMap_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ItineraryMap()
-//    }
-// }
